@@ -1,16 +1,3 @@
-/* import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-})
- */
-/*
- * @Description:
- * @Date: 2024-04-07 09:54:32
- * @LastEditTime: 2024-06-07 09:16:36
- */
 import dayjs from "dayjs";
 import { resolve } from "path";
 import { ConfigEnv, UserConfig, defineConfig, loadEnv } from "vite";

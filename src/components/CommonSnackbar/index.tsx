@@ -1,11 +1,7 @@
 import React from "react";
 import { SnackbarProvider } from "notistack";
 
-interface CommonSnackbarProps {
-  children: React.ReactNode;
-}
-
-const CommonSnackbar: React.FC<CommonSnackbarProps> = ({ children }) => {
+const CommonSnackbar: React.FC = () => {
   return (
     <SnackbarProvider
       maxSnack={3}
@@ -14,9 +10,7 @@ const CommonSnackbar: React.FC<CommonSnackbarProps> = ({ children }) => {
         horizontal: "right"
       }}
       autoHideDuration={3000}
-    >
-      {children}
-    </SnackbarProvider>
+    />
   );
 };
 

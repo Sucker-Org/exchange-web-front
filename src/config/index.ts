@@ -1,12 +1,15 @@
 /*
  * @Description:
  * @Date: 2024-04-07 09:54:32
- * @LastEditTime: 2024-06-05 15:15:15
+ * @LastEditTime: 2024-06-07 17:52:23
  */
 // ? 全局默认配置项
 
 // 首页地址（默认）
 export const HOME_URL: string = "/home/index";
+
+// 交易页地址（默认）
+export const TRADE_URL: string = "/trade/index";
 
 // 登录页地址（默认）
 export const LOGIN_URL: string = "/login";
