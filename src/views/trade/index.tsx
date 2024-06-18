@@ -3,7 +3,12 @@
  * @Author: Eric
  * @Description: Trade component
  */
+import Layout from "@/layout";
 const Trade = () => {
-  return <div className="trade">Trade</div>;
+  return (
+    <Layout>
+      <div className="trade">Trade</div>
+    </Layout>
+  );
 };
 export default Trade;

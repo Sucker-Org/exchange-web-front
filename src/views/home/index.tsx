@@ -6,12 +6,33 @@
 
 //views/home/index.tsx
 import React from "react";
-import Layout from "../../layout";
-
+import Layout from "@/layout";
+import { Box } from "@mui/material";
+import Banner from "./Banner";
+import HotCoins from "./HotCoins";
+import Guidebook from "./Guidebook";
+import News from "./News";
+import AppDescription from "./Description";
+import Question from "./Question";
+import BackToTop from "@/components/BackToTop";
+const RowGap = () => {
+  return <Box sx={{ mb: 6 }} />;
+};
 const Home = () => {
   return (
     <Layout>
-      <div className="home">Home</div>
+      <Banner />
+      <HotCoins />
+      <RowGap />
+      <Guidebook />
+      <RowGap />
+      <News />
+      <RowGap />
+      <AppDescription />
+      <RowGap />
+      <Question />
+      <RowGap />
+      <BackToTop />
     </Layout>
   );
 };

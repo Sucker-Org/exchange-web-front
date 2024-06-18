@@ -1,0 +1,63 @@
+.text {
+  position: relative;
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 49px;
+    height: 49px;
+    content: "";
+    background: rgb(2 241 141 / 50%);
+    filter: blur(10px);
+    border-radius: 50%;
+    box-shadow:
+      rgb(2 241 141 / 40%) 0 0 30px 15px,
+      rgb(2 241 141 / 30%) 0 0 30px 20px,
+      rgb(2 241 141 / 20%) 0 0 30px 25px;
+    animation: move-before 2s infinite linear;
+  }
+  &::after {
+    position: absolute;
+    top: 150px;
+    left: 0;
+    z-index: -1;
+    width: 49px;
+    height: 49px;
+    content: "";
+    background: rgb(0 240 255 / 50%);
+    filter: blur(10px);
+    border-radius: 50%;
+    box-shadow:
+      rgb(0 240 255 / 40%) 0 0 30px 15px,
+      rgb(0 240 255 / 30%) 0 0 30px 20px,
+      rgb(0 240 255 / 20%) 0 0 30px 25px;
+    animation: move-after 3s infinite linear;
+  }
+}
+
+@keyframes move-before {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    /* stylelint-disable-next-line scss/no-global-function-names */
+    transform: translate3d(calc(-10px + 20px * random()), calc(-10px + 20px * random()), 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes move-after {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    /* stylelint-disable-next-line scss/no-global-function-names */
+    transform: translate3d(calc(-15px + 30px * random()), calc(-15px + 30px * random()), 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}

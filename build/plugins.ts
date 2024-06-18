@@ -6,6 +6,7 @@ import eslintPlugin from "vite-plugin-eslint";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { VitePWA } from "vite-plugin-pwa";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import svgr from "vite-plugin-svgr";
 import react from "@vitejs/plugin-react-swc";
 /**
  * 创建 vite 插件
@@ -15,6 +16,10 @@ export const createVitePlugins = (viteEnv: ViteEnv): (PluginOption | PluginOptio
   const { VITE_GLOB_APP_TITLE, VITE_REPORT, VITE_PWA } = viteEnv;
   return [
     react(),
+    svgr({
+      svgrOptions: { exportType: "default", ref: true, svgo: false, titleProp: true },
+      include: "**/*.svg"
+    }),
     // esLint 报错信息显示在浏览器界面上
     eslintPlugin(),
     // 创建打包压缩配置

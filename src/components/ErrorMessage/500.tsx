@@ -5,10 +5,17 @@
  */
 import Img500 from "@/assets/images/500.png";
 import "./index.scss";
+import { Button } from "@mui/material";
 export const Error500 = () => {
   return (
     <div className="not-container">
-      <img src={Img500} alt="500" />
+      <img src={Img500} alt="500" className="not-img" />
+      <div className="not-detail">
+        <h2>500</h2>
+        <Button href="/" variant="contained" color="primary" title="Back to Home">
+          Back to Home
+        </Button>
+      </div>
     </div>
   );
 };

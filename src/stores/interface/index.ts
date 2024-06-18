@@ -4,6 +4,8 @@ export type AssemblySizeType = "large" | "default" | "small";
 
 export type LanguageType = "zh" | "en" | null;
 
+export type ThemeType = "dark" | "light" | null;
+
 /* GlobalState */
 export interface GlobalState {
   layout: LayoutType;

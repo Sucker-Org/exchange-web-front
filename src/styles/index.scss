@@ -4,6 +4,9 @@
   margin: 0;
 }
 body {
+  --header-height: 64px;
+
+  min-width: 1000px;
+  padding-top: var(--header-height);
   font-family: Roboto, sans-serif;
-  background-color: #f5f5f5;
 }
