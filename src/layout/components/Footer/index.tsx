@@ -55,10 +55,9 @@ const sections = [
   }
 ];
 
-// 封装的List部分
 const SectionList = ({ title, items }) => (
   <Grid item xs={2}>
-    <Typography variant="h6" color={"GrayText"} fontWeight={600}>
+    <Typography variant="body1" color="text.secondary" fontWeight={500}>
       {title}
     </Typography>
     <List>
@@ -70,6 +69,7 @@ const SectionList = ({ title, items }) => (
             color={"text.primary"}
             sx={{
               transition: "color 0.3s ease-in-out",
+              fontSize: "0.875rem",
               "&:hover": {
                 color: "primary.main"
               }
@@ -86,7 +86,7 @@ const SectionList = ({ title, items }) => (
 const Footer = () => {
   return (
     <Box bgcolor={theme => (theme.palette.mode === "dark" ? "#0D0E0F" : "rgba(255,255,255,0.9)")} pt={7}>
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Grid container spacing={2} pb={6}>
           {sections.map(section => (
             <SectionList key={section.title} title={section.title} items={section.items} />
@@ -95,10 +95,10 @@ const Footer = () => {
             <Link href="/" underline="none" color={"text.primary"}>
               LOGO
             </Link>
-            <Typography variant="body1" color={"GrayText"} sx={{ mt: 3, mb: 1 }}>
+            <Typography variant="body1" color="text.secondary" sx={{ mt: 3, mb: 1 }}>
               全球优质数字资产交易所
             </Typography>
-            <Typography variant="body1" color={"GrayText"}>
+            <Typography variant="body1" color="text.secondary">
               ©2024 HUIDU.XYZ
             </Typography>
           </Grid>

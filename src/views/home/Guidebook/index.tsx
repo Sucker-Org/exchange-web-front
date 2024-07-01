@@ -38,17 +38,19 @@ const GuidebookContent = [
 const Guidebook = () => {
   const navigate = useNavigate();
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="lg" sx={{ padding: "0 !important" }}>
       <Typography variant="h5" sx={{ mb: 3 }}>
         新手指南
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={5}>
         {GuidebookContent.map((item, index) => (
           <Grid item xs={4} key={index}>
             <Card
               sx={{
-                py: 4,
-                px: 3,
+                pt: 3,
+                pb: 2,
+                px: 4,
+                minHeight: 340,
                 borderRadius: 1.5,
                 bgcolor: theme => (theme.palette.mode === "dark" ? "#000" : "#fff")
               }}
@@ -56,7 +58,7 @@ const Guidebook = () => {
             >
               <img src={item.image} alt={item.title} style={{ width: 100, marginBottom: 32 }} />
               <Typography variant="h6">{item.title}</Typography>
-              <Typography variant="body2" sx={{ color: "GrayText", mt: 1, mb: 3 }}>
+              <Typography variant="body2" sx={{ color: "text.secondary", mt: 1, mb: 3 }}>
                 {item.description}
               </Typography>
               <Box>

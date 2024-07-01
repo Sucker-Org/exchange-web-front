@@ -1,3 +1,4 @@
+import { defaultBorderColor } from "@/config/themeConfig";
 import { Box, Link, Stack, Typography } from "@mui/material";
 interface IconCardProps {
   icon: string;
@@ -26,7 +27,8 @@ export const IconCard: React.FC<IconCardProps> = ({ icon, symbol, price, rate, l
       sx={{
         color: "text.primary",
         cursor: "pointer",
-        background: "linear-gradient(180deg, rgba(10, 201, 255, 1) 0%, rgba(0, 240, 255, 0) 100%)",
+        background: theme =>
+          `linear-gradient(180deg, ${theme.palette.mode === "dark" ? defaultBorderColor("dark") : defaultBorderColor("light")} 0%, rgba(0, 240, 255, 0) 100%)`,
         borderRadius: 2
       }}
       underline="none"
@@ -40,7 +42,7 @@ export const IconCard: React.FC<IconCardProps> = ({ icon, symbol, price, rate, l
           borderRadius: 2,
           zIndex: 3,
           m: "1px",
-          background: theme => (theme.palette.mode === "dark" ? "rgba(0,40,83,1)" : "rgba(255, 255, 255, 1)")
+          bgcolor: "background.paper"
         }}
       >
         <Stack direction="row" spacing={1} alignItems="center">

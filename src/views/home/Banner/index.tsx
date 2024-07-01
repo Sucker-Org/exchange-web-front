@@ -19,15 +19,15 @@ const Banner = () => {
     navigate(REG_URL, { state: { username: register } });
   };
   return (
-    <Container maxWidth="xl">
-      <Stack py={12} spacing={12} direction="row" justifyContent="center" alignItems="center">
+    <Container maxWidth="lg" sx={{ padding: "0 !important" }}>
+      <Stack py={12} direction="row" justifyContent="space-between" alignItems="center" useFlexGap>
         <Box>
           <Typography sx={{ mb: 3, fontWeight: 500, fontSize: 72, lineHeight: 1.1 }}>
             全球前50的数字
             <br />
             货币交易所
           </Typography>
-          <Typography variant="subtitle2" color="GrayText" sx={{ mb: 6 }}>
+          <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 6 }}>
             国家机构担保资产安全
           </Typography>
 

@@ -1,14 +1,67 @@
-/*
- * @Email: allen0101stanton@outlook.com
- * @Author: Eric
- * @Description: Trade component
- */
 import Layout from "@/layout";
-const Trade = () => {
+import { Container } from "@mui/material";
+import { TradeHeader, WatchList, Chart, OrderBook, TradeForm, Account } from "./component";
+
+// mock data img
+import Btc from "@/assets/images/home/icon-btc.png";
+import { TradeHeaderProps } from "./TradeHeader";
+const TradeSpot: React.FC = () => {
+  // const theme = useTheme();
+  /* const style = {
+    display: "flex",
+    flexDirection: "column",
+    gap: 1,
+    width: "100%"
+     gridTemplateRows: `60% 1fr`,
+    [theme.breakpoints.down("md")]: {
+      gridTemplateRows: `500px 1fr`
+    }
+  }; */
+  const tradeHeaderData: TradeHeaderProps = {
+    assetData: {
+      coinInfo: {
+        icon: Btc,
+        symbol: "BTC/USDT",
+        volume: "776.44m"
+      },
+      coinPrice: "70,053.44",
+      coinRate: 7.5,
+      tradeData: [
+        { title: "人民币价格", value: "70,053.44" },
+        { title: "24小时最低", value: "70,053.44" },
+        { title: "24小时最高", value: "70,053.44" },
+        { title: "24小时量(BTC)", value: "70,053.44" },
+        { title: "24小时量(USDT)", value: "70,053.44" }
+      ]
+    }
+  };
   return (
     <Layout>
-      <div className="trade">Trade</div>
+      <Container
+        className="trade-wrap"
+        maxWidth={false}
+        style={{
+          padding: 0,
+          display: "grid",
+          gap: "10px",
+          minHeight: "calc(100vh - 150px)",
+          gridTemplateAreas:
+            "'left header header header right' 'left orderBook chart watchList right' 'left orderBook tradeForm watchList right' 'left account account account right'",
+          gridTemplateColumns: "1fr minmax(253px, 320px) minmax(510px, 880px) minmax(253px, 320px) 1fr",
+          gridTemplateRows: "70px 500px minmax(360px, auto) 360px"
+        }}
+      >
+        <TradeHeader {...tradeHeaderData} sx={{ gridArea: "header" }} />
+        <OrderBook sx={{ gridArea: "orderBook" }} />
+        <Chart sx={{ gridArea: "chart" }} />
+        <TradeForm sx={{ gridArea: "tradeForm" }} />
+        <WatchList sx={{ gridArea: "watchList" }} />
+        <Account sx={{ gridArea: "account" }} />
+
+        <div style={{ gridArea: "left" }}></div>
+        <div style={{ gridArea: "right" }}></div>
+      </Container>
     </Layout>
   );
 };
-export default Trade;
+export default TradeSpot;

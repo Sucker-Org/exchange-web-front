@@ -95,7 +95,7 @@ const CoinSection = ({ heading, coins, icon }) => {
 
 const HotCoins = () => {
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="lg" sx={{ padding: "0 !important" }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
         <Typography variant="h5">热门货币销售趋势</Typography>
         <Link
@@ -115,7 +115,7 @@ const HotCoins = () => {
         </Link>
       </Stack>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
+        <Grid container spacing={5}>
           <CoinSection heading="主流币" coins={coinList} icon={Icon1} />
           <CoinSection heading="热门榜" coins={coinList} icon={Icon2} />
           <CoinSection heading="涨幅榜" coins={coinList} icon={Icon3} />

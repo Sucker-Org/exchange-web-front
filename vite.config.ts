@@ -29,13 +29,13 @@ export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
     define: {
       __APP_INFO__: JSON.stringify(__APP_INFO__)
     },
-    css: {
+    /*  css: {
       preprocessorOptions: {
         scss: {
           additionalData: `@import "@/styles/var.scss";`
         }
       }
-    },
+    }, */
     server: {
       host: "0.0.0.0",
       port: viteEnv.VITE_PORT,

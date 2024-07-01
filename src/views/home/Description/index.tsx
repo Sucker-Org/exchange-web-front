@@ -26,7 +26,7 @@ const ImageSrc = styled("span")({
 
 const AppDescription = () => {
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="lg" sx={{ padding: "0 !important" }}>
       <Typography variant="h5" sx={{ mb: 3 }}>
         随时随地，开启交易
       </Typography>

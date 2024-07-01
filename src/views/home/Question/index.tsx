@@ -31,7 +31,7 @@ const questionLIst = [
 
 const Question = () => {
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="lg" sx={{ padding: "0 !important" }}>
       <Typography variant="h5" mb={3}>
         常见问题
       </Typography>

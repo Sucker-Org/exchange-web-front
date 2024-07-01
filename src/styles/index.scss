@@ -6,7 +6,24 @@
 body {
   --header-height: 64px;
 
-  min-width: 1000px;
+  position: relative;
   padding-top: var(--header-height);
   font-family: Roboto, sans-serif;
+}
+body,
+body * {
+  --scroll-pad: 2px;
+  --scroll-size: 5px;
+  --scroll-bg: transparent;
+  --scroll-color: var(--color-scrollbar);
+}
+body::-webkit-scrollbar,
+body * ::-webkit-scrollbar {
+  width: var(--scroll-size);
+  background-color: var(--scroll-bg);
+}
+body::-webkit-scrollbar-thumb,
+body * ::-webkit-scrollbar-thumb {
+  background-color: var(--scroll-color);
+  border-radius: var(--scroll-pad);
 }

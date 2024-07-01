@@ -1,10 +1,11 @@
 // src/layout/Header/components/NavMenu.tsx
 import { useState } from "react";
-import { Button, MenuProps, styled, Link, MenuItem, Popper, Box, Typography, Stack } from "@mui/material";
+import { Button, Card, MenuProps, styled, Link, MenuItem, Popper, Box, Typography, Stack } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import zIndex from "@mui/material/styles/zIndex";
-import CustomIcon, { IconName } from "@/components/CustomIcon";
+import { IconName } from "@/components/CustomIcon/icons";
+import CustomIcon from "@/components/CustomIcon";
 
 const StyledMenu = styled((props: MenuProps) => (
   <Popper
@@ -13,13 +14,12 @@ const StyledMenu = styled((props: MenuProps) => (
       zIndex: zIndex.tooltip + 1
     }}
   >
-    <Box sx={{ p: 1, bgcolor: "white" }}>{props.children}</Box>
+    <Card sx={{ p: 1, background: "#ffffff" }}>{props.children}</Card>
   </Popper>
 ))(({ theme }) => ({
   "& .MuiBox-root": {
-    border: `1px solid ${theme.palette.divider}`,
     borderRadius: 6,
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(1.4),
     minWidth: 180
   }
 }));
@@ -88,7 +88,7 @@ export const NavMenu: React.FC<NavMenuProps> = ({ menuName = "MenuName", menuLis
                   <Typography variant="body2" color="CaptionText" sx={{ fontWeight: "bold" }}>
                     {item.title}
                   </Typography>
-                  <Typography variant="caption" color="GrayText">
+                  <Typography variant="caption" color="text.secondary">
                     {item.description}
                   </Typography>
                 </Box>

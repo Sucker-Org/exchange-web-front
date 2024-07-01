@@ -7,7 +7,6 @@
 //views/home/index.tsx
 import React from "react";
 import Layout from "@/layout";
-import { Box } from "@mui/material";
 import Banner from "./Banner";
 import HotCoins from "./HotCoins";
 import Guidebook from "./Guidebook";
@@ -15,21 +14,19 @@ import News from "./News";
 import AppDescription from "./Description";
 import Question from "./Question";
 import BackToTop from "@/components/BackToTop";
-const RowGap = () => {
-  return <Box sx={{ mb: 6 }} />;
-};
+import RowGap from "@/components/RowGap";
 const Home = () => {
   return (
-    <Layout>
+    <Layout footer>
       <Banner />
       <HotCoins />
-      <RowGap />
+      <RowGap size="3rem" />
       <Guidebook />
-      <RowGap />
+      <RowGap size="3rem" />
       <News />
-      <RowGap />
+      <RowGap size="3rem" />
       <AppDescription />
-      <RowGap />
+      <RowGap size="3rem" />
       <Question />
       <RowGap />
       <BackToTop />

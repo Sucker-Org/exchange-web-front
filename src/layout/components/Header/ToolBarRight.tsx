@@ -37,8 +37,10 @@ const ToolBarRight = () => {
   const toggleTheme = () => {
     if (currentTheme === "light" || currentTheme === null) {
       setTheme("dark");
+      document.body.style.setProperty("--color-disabled-text", "#5e6673");
     } else {
       setTheme("light");
+      document.body.style.setProperty("--color-disabled-text", "#B7BDC6");
     }
   };
   return (
@@ -51,7 +53,12 @@ const ToolBarRight = () => {
       }}
     >
       <Item>
-        <Button sx={{ color: "text.primary" }} size="small" onClick={() => navigate(LOGIN_URL)} title="登录">
+        <Button
+          sx={{ color: "text.primary", borderRadius: "5rem" }}
+          size="small"
+          onClick={() => navigate(LOGIN_URL)}
+          title="登录"
+        >
           登录
         </Button>
       </Item>

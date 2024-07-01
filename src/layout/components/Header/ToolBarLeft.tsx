@@ -1,7 +1,7 @@
 import { Box, BoxProps, Link } from "@mui/material";
-import { TRADE_CONVERT_URL, MARKETS_URL, TRADE_SPOT_URL, TRADE_CROSS_URL, FUTURE_URL, FINANCE_URL, LEARN_URL } from "@/config";
+import { MARKETS_URL, TRADE_SPOT_URL, TRADE_CROSS_URL, FUTURE_URL, FINANCE_URL, LEARN_URL, C2C_EXPRESS_URL } from "@/config";
 import { NavMenu } from "./components/NavMenu";
-import { IconName } from "@/components/CustomIcon";
+import { IconName } from "@/components/CustomIcon/icons";
 const Item = (props: BoxProps) => {
   const { sx, ...other } = props;
   return (
@@ -27,7 +27,7 @@ const linkList: {
     href: string;
   }[];
 }[] = [
-  { href: TRADE_CONVERT_URL, title: "买币" },
+  { href: C2C_EXPRESS_URL, title: "买币" },
   { href: MARKETS_URL, title: "行情" },
   {
     title: "交易",
