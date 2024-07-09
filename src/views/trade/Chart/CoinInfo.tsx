@@ -1,6 +1,7 @@
 import { IconText } from "@/components/IconText";
 import { Box, List, ListItem, ListItemText, Stack, SxProps, Theme, Typography, Divider, Link } from "@mui/material";
 import Btc from "@/assets/images/home/icon-btc.png";
+import { memo } from "react";
 
 interface CoinInfoProps {
   coinName: string;
@@ -31,11 +32,11 @@ const InfoItem: React.FC<InfoItemProps> = ({ primary, secondary }) => (
   </ListItem>
 );
 
-export const CoinInfo: React.FC<CoinInfoProps> = ({ sx }) => {
+export const CoinInfo: React.FC<CoinInfoProps> = memo(({ sx }) => {
   return (
     <Box sx={{ position: "relative", ...sx }}>
       <Box sx={{ position: "sticky", height: 36, top: 0, width: "100%", zIndex: 1, bgcolor: "background.paper" }}>
-        <IconText icon={Btc} text="BTC" chip="Bitcoin" />
+        <IconText icon={Btc} text="BTC" subText="Bitcoin" />
       </Box>
       <Stack spacing={3} useFlexGap direction="row" flexWrap="nowrap">
         <Box sx={{ width: "50%" }}>
@@ -120,4 +121,4 @@ export const CoinInfo: React.FC<CoinInfoProps> = ({ sx }) => {
       </Stack>
     </Box>
   );
-};
+});

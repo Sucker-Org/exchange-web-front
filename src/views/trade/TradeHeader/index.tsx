@@ -2,6 +2,7 @@ import { IconText } from "@/components/IconText";
 import { Stack, SxProps, Theme, Typography } from "@mui/material";
 import TradeLayoutCard from "../TradeLayoutCard";
 import { useMemo, memo } from "react";
+import RateText from "@/components/RateText";
 
 const AssetItem = memo(({ title, value }: { title: string; value: string }) => {
   return (
@@ -45,15 +46,15 @@ const TradeHeader: React.FC<TradeHeaderProps> = memo(
     return (
       <TradeLayoutCard sx={style}>
         <Stack height={70} direction={"row"} useFlexGap alignItems="center" pt={1}>
-          <IconText icon={coinInfo.icon} text={coinInfo.symbol} chip={coinInfo.volume} singleLine={false} sx={{ mr: 6 }} />
-          <Stack
-            direction={"column"}
-            useFlexGap
-            mr={4.5}
-            color={coinRate === 0 ? "text.main" : coinRate > 0 ? "#21C387" : "#FF314A"}
-          >
-            <Typography variant="body1">{coinPrice}</Typography>
-            <Typography variant="caption">{coinRate > 0 ? `+${coinRate}%` : `${coinRate}%`}</Typography>
+          <IconText icon={coinInfo.icon} text={coinInfo.symbol} subText={coinInfo.volume} singleLine={false} sx={{ mr: 6 }} />
+          <Stack direction={"column"} useFlexGap mr={4.5}>
+            <Typography
+              variant="body1"
+              color={coinRate === 0 ? "text.main" : coinRate > 0 ? "var(--rate-green)" : "var(--rate-red)"}
+            >
+              {coinPrice}
+            </Typography>
+            <RateText rate={coinRate} variant="caption" zeroColor="text.primary" />
           </Stack>
           {tradeData.map((item, index) => (
             <AssetItem key={index} title={item.title} value={item.value} />

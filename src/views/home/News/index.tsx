@@ -31,7 +31,7 @@ const News = () => {
   };
   return (
     <Box sx={{ py: 6, bgcolor: theme => (theme.palette.mode === "dark" ? "RGBA(16, 23, 34, 1)" : "#f0f0f0") }}>
-      <Container maxWidth="lg" sx={{ padding: "0 !important" }}>
+      <Container maxWidth="lg">
         <Typography variant="h5" sx={{ mb: 3 }}>
           热点新闻
         </Typography>

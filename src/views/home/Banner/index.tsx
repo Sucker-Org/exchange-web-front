@@ -8,7 +8,7 @@ import BgSlideImg from "@/assets/images/home/bg-slide.webp";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { REG_URL } from "@/config";
-import { IconCard } from "./IconCard";
+import IconCard from "./IconCard";
 import IconBtc from "@/assets/images/home/icon-btc.png";
 type StateProps = string;
 
@@ -19,7 +19,7 @@ const Banner = () => {
     navigate(REG_URL, { state: { username: register } });
   };
   return (
-    <Container maxWidth="lg" sx={{ padding: "0 !important" }}>
+    <Container maxWidth="lg">
       <Stack py={12} direction="row" justifyContent="space-between" alignItems="center" useFlexGap>
         <Box>
           <Typography sx={{ mb: 3, fontWeight: 500, fontSize: 72, lineHeight: 1.1 }}>
@@ -34,7 +34,6 @@ const Banner = () => {
           <Stack direction="row" spacing={1} mb={8} useFlexGap>
             <TextField
               id="outlined-basic"
-              hiddenLabel
               size="small"
               variant="outlined"
               fullWidth
@@ -51,6 +50,7 @@ const Banner = () => {
                   borderRadius: "5rem"
                 }
               }}
+              hiddenLabel
             />
             <Button
               variant="contained"
@@ -62,14 +62,14 @@ const Banner = () => {
             </Button>
           </Stack>
 
-          <Stack direction="row" spacing={3}>
+          <Stack direction="row" spacing={2}>
             <IconCard
               icon={IconBtc}
               symbol="BTC/USDT"
               price="￥ 123,456"
               rate={-1.23}
               lineData={[
-                68000, 68600, 67000, 68900, 70000, 71000, 70040, 69008, 68800, 68000, 68600, 67000, 68900, 70000, 71000, 70040,
+                68000, 68600, 67030, 68900, 70600, 71000, 70040, 69008, 68800, 68000, 68600, 67000, 68900, 70000, 71000, 70040,
                 69008, 68800
               ]}
             />
@@ -78,9 +78,19 @@ const Banner = () => {
           </Stack>
         </Box>
         <Box>
-          <div>
-            <img src={BgSlideImg} alt="bg" style={{ height: "588px" }} />
-          </div>
+          <Box
+            sx={{
+              height: { sm: "415px", md: "588px" }
+            }}
+          >
+            <img
+              src={BgSlideImg}
+              alt="bg"
+              style={{
+                height: "100%"
+              }}
+            />
+          </Box>
         </Box>
       </Stack>
     </Container>

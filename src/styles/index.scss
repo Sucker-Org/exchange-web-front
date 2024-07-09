@@ -5,6 +5,8 @@
 }
 body {
   --header-height: 64px;
+  --rate-green: #21c387;
+  --rate-red: #ff314a;
 
   position: relative;
   padding-top: var(--header-height);

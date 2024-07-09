@@ -8,6 +8,7 @@ import Icon3 from "@/assets/images/home/icon-coin-03.png";
 
 // Mock data
 import IconBtc from "@/assets/images/home/icon-btc.png";
+import { IconText } from "@/components/IconText";
 const coinList = [
   {
     icon: IconBtc,
@@ -55,7 +56,7 @@ const CoinPaper = styled(Paper)(({ theme }) => ({
 
 const CoinSection = ({ heading, coins, icon }) => {
   return (
-    <Grid xs={4}>
+    <Grid sm={12} md={4}>
       <CoinPaper variant="outlined">
         <Typography
           variant="subtitle1"
@@ -69,16 +70,22 @@ const CoinSection = ({ heading, coins, icon }) => {
         </Typography>
         {coins.map((coin, index) => (
           <Box key={index} sx={{ cursor: "pointer", mb: 2 }}>
-            <Stack direction="row" justifyContent="space-between">
-              <Stack direction="row" spacing={2} alignItems="center">
-                <img src={coin.icon} alt="icon" style={{ height: 26, width: 26 }} />
-                <Box>
-                  <Typography variant="body1">{coin.name}</Typography>
-                  <Typography variant="caption" color={"text.secondary"}>
-                    {coin.fullName}
-                  </Typography>
-                </Box>
-              </Stack>
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              sx={{
+                "&:hover": {
+                  backgroundColor: "background.light"
+                }
+              }}
+            >
+              <IconText
+                icon={coin.icon}
+                text={coin.name}
+                subText={coin.fullName}
+                singleLine={false}
+                iconSize={{ height: 26, width: 26 }}
+              />
               <Box sx={{ textAlign: "right" }}>
                 <Typography variant="body1">{coin.price}</Typography>
                 <Typography variant="body1" color={coin.rate == 0 ? "text.primary" : coin.rate > 0 ? "#1C956C" : "#FF314A"}>
@@ -95,7 +102,7 @@ const CoinSection = ({ heading, coins, icon }) => {
 
 const HotCoins = () => {
   return (
-    <Container maxWidth="lg" sx={{ padding: "0 !important" }}>
+    <Container maxWidth="lg">
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
         <Typography variant="h5">热门货币销售趋势</Typography>
         <Link
@@ -115,7 +122,7 @@ const HotCoins = () => {
         </Link>
       </Stack>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={5}>
+        <Grid container spacing={5} direction={{ xs: "column", sm: "column", md: "row" }}>
           <CoinSection heading="主流币" coins={coinList} icon={Icon1} />
           <CoinSection heading="热门榜" coins={coinList} icon={Icon2} />
           <CoinSection heading="涨幅榜" coins={coinList} icon={Icon3} />

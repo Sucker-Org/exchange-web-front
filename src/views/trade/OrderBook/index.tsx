@@ -166,7 +166,7 @@ const OrderBook: React.FC<OrderBookProps> = ({ sx }) => {
             )}
 
             <Stack>
-              <Typography variant="body1" color="#21C387">
+              <Typography variant="body1" color="var(--rate-green)">
                 70,053.3 {direction} {decimal}
               </Typography>
             </Stack>
@@ -178,7 +178,7 @@ const OrderBook: React.FC<OrderBookProps> = ({ sx }) => {
           </Stack>
         </Box>
 
-        <Compare sx={{ height: 20 }} compareData={{ buy: 75.63, sell: 24.37 }} />
+        <Compare sx={{ height: 20 }} compareData={{ buy: 22.63, sell: 77.37 }} />
       </Box>
     </TradeLayoutCard>
   );

@@ -10,9 +10,10 @@ const getDesignTokens = (mode: PaletteMode) => ({
       main: "#0078FD"
     },
     text: {
-      primary: mode === "dark" ? "#fff" : grey[800],
+      primary: mode === "dark" ? "#EAECEF" : grey[800],
       secondary: mode === "dark" ? "#848E9C" : grey[600],
-      grey: mode === "dark" ? "#6E7583" : grey[600]
+      grey: mode === "dark" ? "#6E7583" : grey[600],
+      hint: mode === "dark" ? "#EAECEF" : grey[600]
     },
     background: {
       default: mode === "dark" ? "#000" : "#fafafa",

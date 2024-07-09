@@ -1,6 +1,5 @@
 import { useEffect, Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
-import Login from "@/views/login";
 import { FullScreenLoading } from "@/components/Loading/fullScreen";
 import { Error403, Error404, Error500 } from "@/components/ErrorMessage";
 import {
@@ -13,18 +12,23 @@ import {
   TRADE_SPOT_URL,
   LOGIN_URL,
   REG_URL,
-  USER_CENTER_URL
+  USER_CENTER_URL,
+  FUTURES_URL,
+  EARN_URL
 } from "@/config";
 
 const Home = lazy(() => import("../views/home"));
-const C2CExpress = lazy(() => import("../views/c2c/express"));
-const C2CMarkets = lazy(() => import("@/views/c2c/markets"));
-const C2COrder = lazy(() => import("@/views/c2c/order"));
-const UserCenter = lazy(() => import("@/views/user/"));
-const MARKETS = lazy(() => import("@/views/markets"));
-const MARKET_RANK = lazy(() => import("@/views/markets/ranking"));
-const TradeSpot = lazy(() => import("@/views/trade"));
-const Register = lazy(() => import("@/views/register"));
+const C2CExpress = lazy(() => import("../views/c2c/express")); //快速买币
+const C2CMarkets = lazy(() => import("@/views/c2c/markets")); //自选买币
+const C2COrder = lazy(() => import("@/views/c2c/order")); //法币交易订单
+const UserCenter = lazy(() => import("@/views/user/")); //用户中心
+const MARKETS = lazy(() => import("@/views/markets")); //行情
+const MARKET_RANK = lazy(() => import("@/views/markets/ranking")); //排行榜
+const TradeSpot = lazy(() => import("@/views/trade")); //现货交易
+const Futures = lazy(() => import("@/views/futures")); //合约交易
+const Earn = lazy(() => import("@/views/earn")); //理财
+const Login = lazy(() => import("@/views/login")); //登录
+const Register = lazy(() => import("@/views/register")); //注册
 
 const RedirectToHome = () => {
   const navigate = useNavigate();
@@ -48,6 +52,8 @@ const AppRouters = () => {
           <Route path={USER_CENTER_URL} element={<UserCenter />} />
           <Route path={MARKETS_URL} element={<MARKETS />} />
           <Route path={MARKET_RANK_URL} element={<MARKET_RANK />} />
+          <Route path={FUTURES_URL} element={<Futures />} />
+          <Route path={EARN_URL} element={<Earn />} />
 
           <Route path={LOGIN_URL} element={<Login />} />
           <Route path={REG_URL} element={<Register />} />

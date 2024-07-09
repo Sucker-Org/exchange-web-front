@@ -38,7 +38,7 @@ const GuidebookContent = [
 const Guidebook = () => {
   const navigate = useNavigate();
   return (
-    <Container maxWidth="lg" sx={{ padding: "0 !important" }}>
+    <Container maxWidth="lg">
       <Typography variant="h5" sx={{ mb: 3 }}>
         新手指南
       </Typography>

@@ -1,5 +1,8 @@
+import React, { useMemo } from "react";
+import RateText from "@/components/RateText";
 import { defaultBorderColor } from "@/config/themeConfig";
 import { Box, Link, Stack, Typography } from "@mui/material";
+
 interface IconCardProps {
   icon: string;
   symbol: string;
@@ -8,19 +11,28 @@ interface IconCardProps {
   lineData: number[];
 }
 
-export const IconCard: React.FC<IconCardProps> = ({ icon, symbol, price, rate, lineData }) => {
-  const svgWidth = 80;
-  const svgHeight = 20;
+const calculatePoints = (lineData, svgWidth, svgHeight) => {
   const maxDataValue = Math.max(...lineData);
   const minDataValue = Math.min(...lineData);
   const dataRange = maxDataValue - minDataValue;
-  const points = lineData
+  return lineData
     .map((point, index) => {
       const x = (index / (lineData.length - 1)) * svgWidth;
       const y = ((maxDataValue - point) / dataRange) * svgHeight;
       return `${x},${y}`;
     })
     .join(" ");
+};
+
+const staticStyles = {
+  iconStyle: { height: 34, width: 34, borderRadius: "50%" },
+  svgStyle: { overflow: "visible" }
+};
+
+const IconCard: React.FC<IconCardProps> = React.memo(({ icon, symbol, price, rate, lineData }) => {
+  const svgWidth = 80;
+  const svgHeight = 20;
+  const points = useMemo(() => calculatePoints(lineData, svgWidth, svgHeight), [lineData, svgWidth, svgHeight]);
 
   return (
     <Link
@@ -35,7 +47,7 @@ export const IconCard: React.FC<IconCardProps> = ({ icon, symbol, price, rate, l
     >
       <Stack
         direction="row"
-        spacing={5}
+        spacing={3}
         position="relative"
         sx={{
           p: 2,
@@ -46,21 +58,21 @@ export const IconCard: React.FC<IconCardProps> = ({ icon, symbol, price, rate, l
         }}
       >
         <Stack direction="row" spacing={1} alignItems="center">
-          <img src={icon} alt="icon" style={{ height: 34, width: 34, borderRadius: "50%" }} />
+          <img src={icon} alt="icon" style={staticStyles.iconStyle} aria-label={`${symbol} icon`} />
           <Box>
             <Typography variant="body1">{symbol}</Typography>
-            <Typography variant="body2" color={rate == 0 ? "text.primary" : rate > 0 ? "#1C956C" : "#FF314A"}>
-              {rate > 0 ? "+" + rate : rate}%
-            </Typography>
+            <RateText rate={rate} />
           </Box>
         </Stack>
         <Box sx={{ textAlign: "right" }}>
-          <svg width={svgWidth} height={svgHeight} style={{ overflow: "visible" }}>
-            <polyline fill="none" stroke={rate > 0 ? "#21C387" : "#FF314A"} strokeWidth="0.5" points={points} />
+          <svg width={svgWidth} height={svgHeight} style={staticStyles.svgStyle}>
+            <polyline fill="none" stroke={rate > 0 ? "var(--rate-green)" : "var(--rate-red)"} strokeWidth="0.5" points={points} />
           </svg>
           <Typography variant="body2">{price}</Typography>
         </Box>
       </Stack>
     </Link>
   );
-};
+});
+
+export default IconCard;

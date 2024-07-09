@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 import { KLineChartPro, DefaultDatafeed, ChartProOptions } from "@klinecharts/pro";
 import "@klinecharts/pro/dist/klinecharts-pro.css";
 import { useThemeStore } from "@/stores/modules/theme";
 
 // TODO 使用基础的K线图、自定义数据源、自定义主题、自定义周期、自定义指标、自定义语言、自定义样式等功能
-export const KlineContainer: React.FC = () => {
+export const KlineContainer: React.FC = memo(() => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<KLineChartPro | null>(null);
@@ -33,11 +33,12 @@ export const KlineContainer: React.FC = () => {
             pricePrecision: 2,
             type: "ADRC"
           },
+          styles: {},
           watermark: watermarkElement,
           theme: themeMode.theme === "dark" ? "dark" : "light",
           drawingBarVisible: false,
           periods: [
-            { multiplier: 5, timespan: "minute", text: "5m" },
+            // { multiplier: 5, timespan: "minute", text: "5m" },
             { multiplier: 15, timespan: "minute", text: "15m" },
             { multiplier: 60, timespan: "minute", text: "1小时" },
             { multiplier: 1, timespan: "day", text: "1天" },
@@ -65,4 +66,4 @@ export const KlineContainer: React.FC = () => {
       <div ref={chartContainerRef} style={{ width: "100%", height: "100%" }}></div>
     </div>
   );
-};
+});

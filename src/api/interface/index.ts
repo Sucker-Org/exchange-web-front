@@ -1,8 +1,3 @@
-/*
- * @Description:
- * @Date: 2024-04-07 09:54:32
- * @LastEditTime: 2024-05-17 11:08:25
- */
 // 请求响应参数（不包含data）
 export interface Result {
   code: string;
@@ -95,5 +90,8 @@ export namespace User {
     id: string;
     name: string;
     status: 0 | 1;
+  }
+  export interface ResUserFavorites {
+    favorites: string[];
   }
 }

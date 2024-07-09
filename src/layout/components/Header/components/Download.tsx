@@ -11,8 +11,8 @@ import {
   styled
 } from "@mui/material";
 import zIndex from "@mui/material/styles/zIndex";
-import { useState } from "react";
-import downloadImage from "@/assets/images/download.png";
+import { useEffect, useState } from "react";
+import { useQRCode } from "next-qrcode";
 const StyledMenu = styled((props: MenuProps) => (
   <Popper
     {...props}
@@ -32,8 +32,13 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 const Download = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const { Canvas } = useQRCode();
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [qrcodeState, setQrcodeState] = useState({
+    qrcode: "",
+    isLoading: true
+  });
   const open = Boolean(anchorEl);
   const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -41,43 +46,34 @@ const Download = () => {
   const handleMouseLeave = () => {
     setAnchorEl(null);
   };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setQrcodeState(prevState => ({ ...prevState, qrcode: "后台获取下载地址", isLoading: false }));
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   return (
     <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      <IconButton title="下载App">
+      <IconButton title="下载App" aria-label="下载App">
         <CustomIcon name="IconDownload" />
       </IconButton>
       <StyledMenu id="customized-menu" anchorEl={anchorEl} open={open} onClose={handleMouseLeave}>
-        <CardHeader sx={{ pb: 1 }} title={<Typography color="CaptionText">扫码下载App</Typography>}></CardHeader>
-        <CardContent
-          sx={{
-            position: "relative",
-            height: 120,
-            p: 0,
-            mb: 1,
-            textAlign: "center"
-          }}
-        >
-          {isLoading && (
+        <CardHeader sx={{ p: 0 }} title={<Typography color="CaptionText">扫码下载App</Typography>} />
+        <CardContent sx={{ position: "relative", height: 120, p: 0, textAlign: "center" }}>
+          {qrcodeState.isLoading ? (
             <CircularProgress
               size={24}
-              sx={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                marginTop: "-12px",
-                marginLeft: "-12px"
-              }}
+              sx={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+            />
+          ) : (
+            <Canvas
+              text={qrcodeState.qrcode}
+              options={{ type: "image/jpeg", quality: 0.3, errorCorrectionLevel: "M", scale: 4, width: 120 }}
             />
           )}
-
-          <img
-            src={downloadImage}
-            alt="Download"
-            style={{ height: 120, width: 120, display: isLoading ? "none" : "inline-block" }}
-            onLoad={() => setIsLoading(false)}
-          />
         </CardContent>
-
         <Typography variant="caption" color="text.secondary">
           支持iOS和Android客户端
         </Typography>

@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-04-07 09:54:32
- * @LastEditTime: 2024-07-01 04:15:49
+ * @LastEditTime: 2024-07-05 17:13:14
  */
 // ? 全局默认配置项
 
@@ -35,10 +35,13 @@ export const TRADE_SPOT_URL: string = "/trade-spot";
 export const TRADE_CROSS_URL: string = "/trade-cross";
 
 //合约交易
-export const FUTURE_URL: string = "/future";
+export const FUTURES_URL: string = "/futures";
 
-//理财
+//金融
 export const FINANCE_URL: string = "/finance";
+
+// 理财
+export const EARN_URL: string = "/earn";
 
 //新手学院
 export const LEARN_URL: string = "/learn";

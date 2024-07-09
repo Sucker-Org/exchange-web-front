@@ -2,10 +2,11 @@ import { ResultData } from "@/api/interface";
 import { LOGIN_URL } from "@/config";
 import { ResultEnum } from "@/enums/httpEnum";
 // import router from "@/routers";
-import { useUserStore } from "@/stores/modules/user";
+import { useAuthStore } from "@/stores/modules/auth";
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { AxiosCanceler } from "./helper/axiosCancel";
 import { checkStatus } from "./helper/checkStatus";
+import { useNavigate } from "react-router-dom";
 
 export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   loading?: boolean;
@@ -33,11 +34,11 @@ class RequestHttp {
     /**
      * @description 请求拦截器
      * 客户端发送请求 -> [请求拦截器] -> 服务器
-     * token校验(JWT) : 接受服务器返回的 token,存储到 vuex/pinia/本地储存当中
+     * token校验(JWT) : 接受服务器返回的 token,存储到本地储存当中
      */
     this.service.interceptors.request.use(
       (config: CustomAxiosRequestConfig) => {
-        const userStore = useUserStore();
+        const authStore = useAuthStore();
         // 重复请求不需要取消，在 api 服务中通过指定的第三个参数: { cancel: false } 来控制
         config.cancel ??= true;
         config.cancel && axiosCanceler.addPending(config);
@@ -45,8 +46,7 @@ class RequestHttp {
         config.loading ??= true;
         // config.loading && showFullScreenLoading(config.loadingText);
         if (config.headers && typeof config.headers.set === "function") {
-          config.headers.set("Authorization", userStore.token);
-          //config.headers.set("dev-auth", "service-gzh");
+          config.headers.set("Authorization", authStore.token);
         }
         return config;
       },
@@ -63,13 +63,14 @@ class RequestHttp {
       (response: AxiosResponse & { config: CustomAxiosRequestConfig }) => {
         const { data, config } = response;
 
-        const userStore = useUserStore();
+        const authStore = useAuthStore();
+        const navigator = useNavigate();
         axiosCanceler.removePending(config);
         // config.loading && tryHideFullScreenLoading();
         // 登录失效
         if (data.code == ResultEnum.OVERDUE) {
-          userStore.setToken("");
-          // router.replace(LOGIN_URL);
+          authStore.setToken("");
+          navigator(LOGIN_URL);
           // ElMessage.error(data.msg);
           return Promise.reject(data);
         }

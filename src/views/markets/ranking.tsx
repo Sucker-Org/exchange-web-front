@@ -1,23 +1,23 @@
 import { MARKETS_URL } from "@/config";
 import Layout from "@/layout";
-import { Typography, Tab, Container, Breadcrumbs, Link, Card, Grid } from "@mui/material";
+import { Typography, Tab, Container, Breadcrumbs, Link, Grid } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useState } from "react";
-import { IconText } from "@/components/IconText";
-import hotIcon from "@/assets/images/markets/icon-hot.webp";
-import upIcon from "@/assets/images/markets/icon-up.webp";
-import downIcon from "@/assets/images/markets/icon-down.webp";
+import { MarketCard } from "./component/MarketCard";
+import { MarketListItem } from "./component/MarketListItem";
+import { RankingTable } from "./component/RankingTable";
 
-const cardStyle = { py: 2, px: 1, borderRadius: 4, bgcolor: "background.default" };
+import { totalData } from "./getData";
 
 const Ranking = () => {
   const [tabIndex, setTabIndex] = useState("0");
   const handleChange = (_event, newValue) => {
     setTabIndex(newValue);
   };
+
   return (
     <Layout footer>
-      <Container maxWidth="lg" sx={{ padding: "0 !important", minHeight: "calc(100vh - var(--header-height))" }}>
+      <Container maxWidth="xl" sx={{ minHeight: "calc(100vh - var(--header-height))" }}>
         <Breadcrumbs aria-label="rankin breadcrumb" sx={{ mt: 3 }}>
           <Link underline="hover" color="inherit" href={MARKETS_URL}>
             行情概览
@@ -33,12 +33,11 @@ const Ranking = () => {
         <TabContext value={tabIndex}>
           <TabList
             onChange={handleChange}
-            aria-label="kline"
+            aria-label="ranking tabs"
             sx={{
-              height: "100%",
               "& .MuiTabs-indicator": {
-                width: "30px !important",
-                transform: "translateX(30px) !important"
+                width: "20px !important",
+                transform: "translateX(35px) !important"
               },
               "& .Mui-selected": {
                 color: theme => theme.palette.text.primary + " !important",
@@ -52,28 +51,27 @@ const Ranking = () => {
             <Tab label="跌幅榜" value="3" />
           </TabList>
 
-          <TabPanel value="0">
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6} md={4}>
-                <Card variant="outlined" sx={cardStyle}>
-                  <IconText fz="button" icon={hotIcon} width={16} height={16} text={"热门榜"} />
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <Card variant="outlined" sx={cardStyle}>
-                  <IconText fz="button" icon={upIcon} width={16} height={16} text={"涨幅榜"} />
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <Card variant="outlined" sx={cardStyle}>
-                  <IconText fz="button" icon={downIcon} width={16} height={16} text={"跌幅榜"} />
-                </Card>
-              </Grid>
+          <TabPanel value="0" sx={{ p: 0, pt: 2 }}>
+            <Grid container spacing={3}>
+              {Object.entries(totalData).map(([key, { cardIcon, title, data }]) => (
+                <MarketCard key={key} cardIcon={cardIcon} title={title} cardIconSize={16} titleSize="body2">
+                  {data.slice(0, 5).map((item, index) => (
+                    <MarketListItem key={index} keyNumber={index+1} {...item} />
+                  ))}
+                </MarketCard>
+              ))}
             </Grid>
           </TabPanel>
-          <TabPanel value="1">热门榜</TabPanel>
-          <TabPanel value="2">涨幅榜</TabPanel>
-          <TabPanel value="3">跌幅榜</TabPanel>
+
+          <TabPanel value="1" sx={{ p: 0 }}>
+            <RankingTable tableData={totalData.hot.data} />
+          </TabPanel>
+          <TabPanel value="2" sx={{ p: 0 }}>
+            <RankingTable tableData={totalData.up.data} />
+          </TabPanel>
+          <TabPanel value="3" sx={{ p: 0 }}>
+            <RankingTable tableData={totalData.down.data} />
+          </TabPanel>
         </TabContext>
       </Container>
     </Layout>

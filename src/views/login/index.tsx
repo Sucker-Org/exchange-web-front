@@ -5,12 +5,12 @@
  */
 import React from "react";
 import Layout from "@/layout";
-import "./index.scss";
+import { Stack } from "@mui/material";
 
 const Login = () => {
   return (
     <Layout>
-      <div className="login">Login</div>
+      <Stack>登录</Stack>
     </Layout>
   );
 };

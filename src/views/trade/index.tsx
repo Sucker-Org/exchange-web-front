@@ -6,17 +6,16 @@ import { TradeHeader, WatchList, Chart, OrderBook, TradeForm, Account } from "./
 import Btc from "@/assets/images/home/icon-btc.png";
 import { TradeHeaderProps } from "./TradeHeader";
 const TradeSpot: React.FC = () => {
-  // const theme = useTheme();
-  /* const style = {
-    display: "flex",
-    flexDirection: "column",
-    gap: 1,
-    width: "100%"
-     gridTemplateRows: `60% 1fr`,
-    [theme.breakpoints.down("md")]: {
-      gridTemplateRows: `500px 1fr`
-    }
-  }; */
+  const layoutStyle = {
+    padding: 0,
+    display: "grid",
+    gap: "10px",
+    minHeight: "calc(100vh - 150px)",
+    gridTemplateAreas:
+      "'left header header header right' 'left orderBook chart watchList right' 'left orderBook tradeForm watchList right' 'left account account account right'",
+    gridTemplateColumns: "1fr minmax(253px, 320px) minmax(510px, 880px) minmax(253px, 320px) 1fr",
+    gridTemplateRows: "70px 500px minmax(360px, auto) 360px"
+  };
   const tradeHeaderData: TradeHeaderProps = {
     assetData: {
       coinInfo: {
@@ -35,22 +34,10 @@ const TradeSpot: React.FC = () => {
       ]
     }
   };
+
   return (
     <Layout>
-      <Container
-        className="trade-wrap"
-        maxWidth={false}
-        style={{
-          padding: 0,
-          display: "grid",
-          gap: "10px",
-          minHeight: "calc(100vh - 150px)",
-          gridTemplateAreas:
-            "'left header header header right' 'left orderBook chart watchList right' 'left orderBook tradeForm watchList right' 'left account account account right'",
-          gridTemplateColumns: "1fr minmax(253px, 320px) minmax(510px, 880px) minmax(253px, 320px) 1fr",
-          gridTemplateRows: "70px 500px minmax(360px, auto) 360px"
-        }}
-      >
+      <Container className="trade-wrap" maxWidth={false} style={layoutStyle}>
         <TradeHeader {...tradeHeaderData} sx={{ gridArea: "header" }} />
         <OrderBook sx={{ gridArea: "orderBook" }} />
         <Chart sx={{ gridArea: "chart" }} />

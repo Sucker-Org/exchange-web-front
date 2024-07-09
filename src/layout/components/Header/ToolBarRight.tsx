@@ -10,6 +10,7 @@ import { LOGIN_URL, REG_URL } from "@/config";
 import { useThemeStore } from "@/stores/modules/theme";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import Download from "./components/Download";
 
@@ -27,8 +28,10 @@ const Item = (props: BoxProps) => {
     />
   );
 };
-
-const ToolBarRight = () => {
+interface ToolBarLeftProps {
+  openDrawer: () => void;
+}
+const ToolBarRight = ({ openDrawer }: ToolBarLeftProps) => {
   const navigate = useNavigate();
 
   const setTheme = useThemeStore(state => state.setTheme);
@@ -89,6 +92,17 @@ const ToolBarRight = () => {
       <Item>
         <IconButton title="通知公告">
           <NotificationsNoneOutlinedIcon />
+        </IconButton>
+      </Item>
+
+      <Item
+        sx={{
+          display: { xs:"flex", sm: "flex", md: "none" }
+        }}
+        onClick={openDrawer}
+      >
+        <IconButton title="菜单">
+          <MenuIcon />
         </IconButton>
       </Item>
     </Box>
