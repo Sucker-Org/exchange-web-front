@@ -3,10 +3,8 @@ import React, { memo } from "react";
 
 interface CompareProps {
   sx?: SxProps<Theme>;
-  compareData: {
-    buy: number;
-    sell: number;
-  };
+  buy: number;
+  sell: number;
 }
 
 interface CompareIndicatorProps {
@@ -49,15 +47,15 @@ const CompareIndicator: React.FC<CompareIndicatorProps> = memo(({ label, percent
   return (
     <div style={{ alignItems: "center", display: "inline-flex", height: "100%", position: "absolute", ...alignStyle }}>
       {position === "left" && <span style={spanStyle}>{label}</span>}
-      <Typography variant="caption">{percentage}</Typography>
+      <Typography variant="caption" lineHeight={20}>
+        {percentage}
+      </Typography>
       {position === "right" && <span style={spanStyle}>{label}</span>}
     </div>
   );
 });
 
-const Compare: React.FC<CompareProps> = memo(({ compareData, sx }) => {
-  const { buy, sell } = compareData;
-
+export const Compare: React.FC<CompareProps> = memo(({ buy, sell, sx }) => {
   return (
     <Stack direction="row" alignItems="center" sx={{ ...sx }}>
       <Box
@@ -95,5 +93,3 @@ const Compare: React.FC<CompareProps> = memo(({ compareData, sx }) => {
     </Stack>
   );
 });
-
-export default Compare;

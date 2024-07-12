@@ -1,7 +1,9 @@
 import { IconText } from "@/components/IconText";
-import { Stack, SxProps, Theme, Typography } from "@mui/material";
+import { IconButton, Stack, SxProps, Theme, Typography } from "@mui/material";
 import TradeLayoutCard from "../TradeLayoutCard";
-import { useMemo, memo } from "react";
+import { useMemo, memo, useState, useEffect } from "react";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import RateText from "@/components/RateText";
 
 const AssetItem = memo(({ title, value }: { title: string; value: string }) => {
@@ -34,19 +36,48 @@ export interface TradeHeaderProps {
 
 const TradeLayoutCardStyle = (sx?: SxProps<Theme>) => ({
   borderTop: "none",
-  px: 4,
+  px: 2,
   gridArea: "header",
   ...sx
 });
 
 const TradeHeader: React.FC<TradeHeaderProps> = memo(
   ({ assetData, sx }) => {
+    const [loading, setLoading] = useState(true);
     const { coinInfo, coinPrice, coinRate, tradeData } = assetData;
+
+    const [isFav, setIsFav] = useState(false);
+    const handleFav = (e: { stopPropagation: () => void }) => {
+      e.stopPropagation();
+      setIsFav(!isFav);
+    };
+
     const style = useMemo(() => TradeLayoutCardStyle(sx), [sx]);
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }, []);
     return (
-      <TradeLayoutCard sx={style}>
+      <TradeLayoutCard isLoading={loading} sx={style}>
         <Stack height={70} direction={"row"} useFlexGap alignItems="center" pt={1}>
-          <IconText icon={coinInfo.icon} text={coinInfo.symbol} subText={coinInfo.volume} singleLine={false} sx={{ mr: 6 }} />
+          <IconButton sx={{ mr: 1, color: isFav ? "var(--fav-yellow)" : "text.main" }} onClick={handleFav}>
+            {isFav ? <StarIcon /> : <StarBorderIcon />}
+          </IconButton>
+          <IconText
+            icon={coinInfo.icon}
+            text={coinInfo.symbol}
+            subText={coinInfo.volume}
+            singleLine={false}
+            fz="subtitle1"
+            sx={{
+              mr: 6,
+              "& .symbol": {
+                fontWeight: 600
+              }
+            }}
+          />
           <Stack direction={"column"} useFlexGap mr={4.5}>
             <Typography
               variant="body1"

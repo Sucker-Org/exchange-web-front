@@ -1,11 +1,16 @@
+/*
+ * @Email: allen0101stanton@outlook.com
+ * @Author: Eric
+ * @Description:
+ */
 import Layout from "@/layout";
 import { Container } from "@mui/material";
-import { TradeHeader, WatchList, Chart, Orderbook, TradeForm, Account } from "./component";
+import { TradeHeader, WatchList, Chart, OrderBook, TradeForm, Account } from "./component";
 
 // mock data img
 import Btc from "@/assets/images/home/icon-btc.png";
 import { TradeHeaderProps } from "./TradeHeader";
-const TradeSpot: React.FC = () => {
+const TradeCross: React.FC = () => {
   const layoutStyle = {
     padding: 0,
     display: "grid",
@@ -39,7 +44,7 @@ const TradeSpot: React.FC = () => {
     <Layout>
       <Container className="trade-wrap" maxWidth={false} style={layoutStyle}>
         <TradeHeader {...tradeHeaderData} sx={{ gridArea: "header" }} />
-        <Orderbook sx={{ gridArea: "orderBook" }} />
+        <OrderBook sx={{ gridArea: "orderBook" }} />
         <Chart sx={{ gridArea: "chart" }} />
         <TradeForm sx={{ gridArea: "tradeForm" }} />
         <WatchList sx={{ gridArea: "watchList" }} />
@@ -51,4 +56,4 @@ const TradeSpot: React.FC = () => {
     </Layout>
   );
 };
-export default TradeSpot;
+export default TradeCross;

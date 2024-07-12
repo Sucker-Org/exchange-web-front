@@ -3,7 +3,7 @@ import { Box, SxProps, Tab, Theme } from "@mui/material";
 import TradeLayoutCard from "../TradeLayoutCard";
 import { memo, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { KlineContainer } from "./KlineContainer";
+import KlineChart from "@/components/KlineChart";
 import { CoinInfo } from "./CoinInfo";
 interface ChartProps {
   sx?: SxProps<Theme>;
@@ -26,25 +26,13 @@ const Chart: React.FC<ChartProps> = memo(({ sx }) => {
             "& .MuiTab-root": { minHeight: "40px" }
           }}
         >
-          <TabList
-            onChange={handleChange}
-            aria-label="kline"
-            sx={{
-              height: "100%"
-            }}
-          >
+          <TabList onChange={handleChange} aria-label="kline" sx={{ height: "100%" }}>
             <Tab label="图表" value="1" />
             <Tab label="币种信息" value="2" />
           </TabList>
         </Box>
-        <TabPanel
-          value="1"
-          sx={{
-            p: 0,
-            flex: 1
-          }}
-        >
-          <KlineContainer />
+        <TabPanel value="1" sx={{ p: 0, flex: 1 }}>
+          <KlineChart />
         </TabPanel>
         <TabPanel value="2" sx={{ p: 0, flex: 1, my: 2, mx: 3, overflowY: "auto" }}>
           <CoinInfo coinName="BTC" />

@@ -1,31 +1,27 @@
-import {
-  Box,
-  FormControl,
-  List,
-  ListItem,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Stack,
-  SxProps,
-  Theme,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography
-} from "@mui/material";
+import { Box, SelectChangeEvent, SxProps, Theme, useTheme } from "@mui/material";
 import TradeLayoutCard from "../TradeLayoutCard";
-import Compare from "./Compare";
 import { useEffect, useState } from "react";
 import styles from "./index.module.scss";
-import { useThemeStore } from "@/stores/modules/theme";
+import { Compare } from "./Compare";
+import { OrderbookHeader } from "./OrderbookHeader";
+import { OrderbookTableHeader } from "./OrderbookTableHeader";
+import { OrderbookTableBody } from "./OrderbookTableBody";
+
+export const DirectionEnums = {
+  BOTH: "both",
+  BID: "bid",
+  ASK: "ask"
+};
+export type DirectionType = (typeof DirectionEnums)[keyof typeof DirectionEnums];
 interface OrderBookProps {
   sx: SxProps<Theme>;
 }
 const OrderBook: React.FC<OrderBookProps> = ({ sx }) => {
-  const themeMode = useThemeStore();
-  const [direction, setDirection] = useState<string | null>("both");
+  const themeMode = useTheme();
+  const [loading, setLoading] = useState(true);
 
-  const handleChangeDirection = (_event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
+  const [direction, setDirection] = useState<DirectionType>(DirectionEnums.BOTH);
+  const handleChangeDirection = (_event, newAlignment: DirectionType) => {
     if (newAlignment !== null) {
       setDirection(newAlignment);
     }
@@ -37,148 +33,45 @@ const OrderBook: React.FC<OrderBookProps> = ({ sx }) => {
     setDecimal(event.target.value);
   };
 
+  const compareData = {
+    buy: 22.63,
+    sell: 77.37
+  };
+
   useEffect(() => {
     setDecimalList(["0.1", "1", "10", "100"]);
+    setLoading(false);
   }, []);
   return (
-    <TradeLayoutCard sx={{ ...sx }}>
+    <TradeLayoutCard isLoading={loading} sx={{ ...sx }}>
       <Box
-        className={`${themeMode.theme === "dark" ? styles["theme-dark"] : styles["theme-light"]}`}
         sx={{
-          px: 1,
           display: "flex",
           height: "100%",
-          flexDirection: "column",
-          py: 1
+          flexDirection: "column"
         }}
       >
-        <Stack
-          direction={"row"}
-          justifyContent={"space-between"}
-          sx={{
-            height: 20,
-            mb: 1
-          }}
-        >
-          <ToggleButtonGroup
-            value={direction}
-            size="small"
-            exclusive
-            onChange={handleChangeDirection}
-            aria-label="direction"
-            className={styles["toggle-button-wrap"]}
-          >
-            <ToggleButton value="both" aria-label="both" className={styles["toggle-button-both"]}>
-              both
-            </ToggleButton>
-            <ToggleButton value="buy" aria-label="buy" className={styles["toggle-button-buy"]}>
-              buy
-            </ToggleButton>
-            <ToggleButton value="sell" aria-label="sell" className={styles["toggle-button-sell"]}>
-              sell
-            </ToggleButton>
-          </ToggleButtonGroup>
-
-          <FormControl sx={{ m: 0, maxWidth: 100 }} size="small">
-            <Select
-              sx={{
-                height: 20,
-                fontSize: 13,
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "none"
-                },
-                "& .MuiSelect-select": {
-                  padding: 0
-                }
-              }}
-              style={{
-                padding: 0
-              }}
-              labelId="decimal-select-small-label"
-              id="decimal-select-small"
-              value={decimal}
-              label="decimal"
-              onChange={handleChangeDecimal}
-            >
-              {decimalList.map((item, index) => (
-                <MenuItem key={index} sx={{ fontSize: 12, width: 100 }} value={item}>
-                  {item}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Stack>
         <Box
+          className={`${themeMode.palette.mode === "dark" ? styles["theme-dark"] : styles["theme-light"]}`}
           sx={{
-            height: "calc(100% - 40px)"
+            display: "flex",
+            flexDirection: "column",
+            height: "100%"
           }}
         >
-          <Stack
-            direction={"row"}
-            sx={{
-              height: "20px",
-              width: "100%",
-              lineHeight: "20px"
-            }}
-          >
-            <Typography
-              variant="caption"
-              color="text.grey"
-              sx={{
-                flex: "1 1",
-                overflow: "hidden",
-                textAlign: "left",
-                textOverflow: "ellipsis"
-              }}
-            >
-              价格(USDT)
-            </Typography>
-            <Typography
-              variant="caption"
-              color="text.grey"
-              sx={{
-                flex: "1 1",
-                overflow: "hidden",
-                textAlign: "right",
-                textOverflow: "ellipsis"
-              }}
-            >
-              数量(BTC)
-            </Typography>
-            <Typography
-              variant="caption"
-              color="text.grey"
-              sx={{
-                flex: "1 1",
-                overflow: "hidden",
-                textAlign: "right",
-                textOverflow: "ellipsis"
-              }}
-            >
-              成交额
-            </Typography>
-          </Stack>
-          <Stack height={"100%"} justifyContent={direction === "both" ? "center" : "flex-start"}>
-            {(direction === "sell" || direction === "both") && (
-              <List>
-                <ListItem>sell data</ListItem>
-              </List>
-            )}
+          <OrderbookHeader
+            direction={direction}
+            handleChangeDirection={handleChangeDirection}
+            decimal={decimal}
+            handleChangeDecimal={handleChangeDecimal}
+            decimalList={decimalList}
+            sx={{ height: 20, ml: 1, my: 1 }}
+          />
+          <OrderbookTableHeader />
 
-            <Stack>
-              <Typography variant="body1" color="var(--rate-green)">
-                70,053.3 {direction} {decimal}
-              </Typography>
-            </Stack>
-            {(direction === "buy" || direction === "both") && (
-              <List>
-                <ListItem>buy data</ListItem>
-              </List>
-            )}
-          </Stack>
+          <OrderbookTableBody price={"76892.76"} priceDirection={"down"} decimal={decimal} direction={direction} />
+          <Compare sx={{ height: 20 }} {...compareData} />
         </Box>
-
-        <Compare sx={{ height: 20 }} compareData={{ buy: 22.63, sell: 77.37 }} />
       </Box>
     </TradeLayoutCard>
   );

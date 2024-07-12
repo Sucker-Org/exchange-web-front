@@ -4,7 +4,7 @@ import "@klinecharts/pro/dist/klinecharts-pro.css";
 import { useThemeStore } from "@/stores/modules/theme";
 
 // TODO 使用基础的K线图、自定义数据源、自定义主题、自定义周期、自定义指标、自定义语言、自定义样式等功能
-export const KlineContainer: React.FC = memo(() => {
+const KlineChart: React.FC = () => {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<KLineChartPro | null>(null);
@@ -66,4 +66,6 @@ export const KlineContainer: React.FC = memo(() => {
       <div ref={chartContainerRef} style={{ width: "100%", height: "100%" }}></div>
     </div>
   );
-});
+};
+
+export default memo(KlineChart);

@@ -1,6 +1,8 @@
 import { Typography, Stack } from "@mui/material";
 import { IconText } from "@/components/IconText";
 import RateText from "@/components/RateText";
+import { useNavigate } from "react-router-dom";
+import { TRADE_SPOT_URL } from "@/config";
 
 const listItemStyle = {
   mb: 2,
@@ -23,8 +25,16 @@ export interface MarketListItemProps {
 }
 
 export const MarketListItem: React.FC<MarketListItemProps> = ({ keyNumber, coin, name, price, rate }) => {
+  const navigator = useNavigate();
   return (
-    <Stack direction="row" alignItems="center" sx={listItemStyle}>
+    <Stack
+      direction="row"
+      alignItems="center"
+      sx={listItemStyle}
+      onClick={() => {
+        navigator(`${TRADE_SPOT_URL}?symbol=${name}_USDT`);
+      }}
+    >
       <Typography variant="body2" color="text.secondary" sx={{ width: 10, flex: "10 1 0%" }}>
         {keyNumber}
       </Typography>

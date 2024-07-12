@@ -27,10 +27,12 @@ const IconText: React.FC<IconTextProps> = React.memo(
     singleLine = true,
     sx
   }) => (
-    <Stack direction="row" spacing={1} alignItems="center" sx={sx}>
+    <Stack direction="row" spacing={1} alignItems="center" sx={{ ...sx }}>
       <img src={icon} alt={text} width={iconSize?.width} height={iconSize?.height} role="img" aria-label={text} />
       <Stack direction={singleLine ? "row" : "column"} spacing={singleLine ? 1 : 0}>
-        <Typography variant={fz || "body2"}>{text}</Typography>
+        <Typography className="symbol" variant={fz || "body2"}>
+          {text}
+        </Typography>
         {subText && (
           <Typography variant="caption" color={"text.secondary"}>
             {subText}

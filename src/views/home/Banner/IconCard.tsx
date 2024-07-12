@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import RateText from "@/components/RateText";
 import { defaultBorderColor } from "@/config/themeConfig";
 import { Box, Link, Stack, Typography } from "@mui/material";
+import { TRADE_SPOT_URL } from "@/config";
 
 interface IconCardProps {
   icon: string;
@@ -29,6 +30,8 @@ const staticStyles = {
   svgStyle: { overflow: "visible" }
 };
 
+const transformSymbol = (symbol: string) => symbol.replace("/", "_");
+
 const IconCard: React.FC<IconCardProps> = React.memo(({ icon, symbol, price, rate, lineData }) => {
   const svgWidth = 80;
   const svgHeight = 20;
@@ -36,12 +39,16 @@ const IconCard: React.FC<IconCardProps> = React.memo(({ icon, symbol, price, rat
 
   return (
     <Link
+      href={`${TRADE_SPOT_URL}?symbol=${transformSymbol(symbol)}`}
       sx={{
         color: "text.primary",
         cursor: "pointer",
         background: theme =>
           `linear-gradient(180deg, ${theme.palette.mode === "dark" ? defaultBorderColor("dark") : defaultBorderColor("light")} 0%, rgba(0, 240, 255, 0) 100%)`,
-        borderRadius: 2
+        borderRadius: 2,
+        "&:hover > .MuiStack-root": {
+          bgcolor: "background.light"
+        }
       }}
       underline="none"
     >
@@ -54,6 +61,7 @@ const IconCard: React.FC<IconCardProps> = React.memo(({ icon, symbol, price, rat
           borderRadius: 2,
           zIndex: 3,
           m: "1px",
+          transition: "background 0.3s",
           bgcolor: "background.paper"
         }}
       >

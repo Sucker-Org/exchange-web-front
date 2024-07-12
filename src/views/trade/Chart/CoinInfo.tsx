@@ -1,7 +1,8 @@
 import { IconText } from "@/components/IconText";
 import { Box, List, ListItem, ListItemText, Stack, SxProps, Theme, Typography, Divider, Link } from "@mui/material";
 import Btc from "@/assets/images/home/icon-btc.png";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
+import { Loading } from "@/components/Loading";
 
 interface CoinInfoProps {
   coinName: string;
@@ -33,8 +34,17 @@ const InfoItem: React.FC<InfoItemProps> = ({ primary, secondary }) => (
 );
 
 export const CoinInfo: React.FC<CoinInfoProps> = memo(({ sx }) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <Box sx={{ position: "relative", ...sx }}>
+      <Loading open={loading} fullscreen={false} />
       <Box sx={{ position: "sticky", height: 36, top: 0, width: "100%", zIndex: 1, bgcolor: "background.paper" }}>
         <IconText icon={Btc} text="BTC" subText="Bitcoin" />
       </Box>
@@ -112,10 +122,7 @@ export const CoinInfo: React.FC<CoinInfoProps> = memo(({ sx }) => {
             介绍
           </Typography>
           <Typography variant="caption" color="text.secondary">
-            比特币(BTC)是一种点对点加密货币，旨在充当独立于任何中央机构的一种交易手段。BTC可以安全，可验证和不变的方式进行电子现金转移。BTC于2009年推出，是通过在交易信息广播到比特币网络中的所有节点之前加盖交易时间戳的"第一种解决双重支出问题的虚拟数字货币"。比特币协议通过blockchain网络结构为拜占庭容错问题提供了解决方案，该概念最初由Stuart
-            Haber和W. Scott Stornetta创建1991年。Bitcoin的白皮书由个人或一个团体以化名"Satoshi
-            Nakamoto"于2008年发表，其基本身份尚未得到验证。比特币协议使用基于SHA-256d的工作量证明(PoW)算法达成网络共识。其网络的目标出块时间为10分钟，最大供应量为2100万个代币，代币的产生速率不断下降。为了防止拥堵时间的波动，通过基于过去2016年拥堵时间的算法重新调整了网络的出块难度。区块大小上限为1兆字节，比特币协议同时支持Lightning
-            Network支付渠道的多层基础结构，以及隔离见证，这是一个增加功能的软分叉作为网络可扩展性的解决方案。
+            增加功能的软分叉作为网络可扩展性的解决方案。
           </Typography>
         </Box>
       </Stack>

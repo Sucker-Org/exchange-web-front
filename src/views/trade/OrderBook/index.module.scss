@@ -3,16 +3,16 @@ $bg-position-both-dark: -63px 0;
 $bg-position-both-light: -42px 0;
 $bg-position-buy-dark: -231px 0;
 $bg-position-buy-light: -210px 0;
-$bg-position-sell-dark: -147px 0;
-$bg-position-sell-light: -126px 0;
+$bg-position-ask-dark: -147px 0;
+$bg-position-ask-light: -126px 0;
 
 // Selected state adjustments
 $bg-selected-both-dark: -21px 0;
 $bg-selected-buy-dark: -190px 0;
-$bg-selected-sell-dark: -106px 0;
+$bg-selected-ask-dark: -106px 0;
 $bg-selected-both-light: -63px 0;
 $bg-selected-buy-light: -232px 0;
-$bg-selected-sell-light: -148px 0;
+$bg-selected-ask-light: -148px 0;
 .toggle-button-wrap {
   button {
     width: 20px;
@@ -41,10 +41,10 @@ $bg-selected-sell-light: -148px 0;
         background-position: $bg-selected-buy-dark;
       }
     }
-    .toggle-button-sell {
-      background-position: $bg-position-sell-dark;
+    .toggle-button-ask {
+      background-position: $bg-position-ask-dark;
       &:global(.Mui-selected) {
-        background-position: $bg-selected-sell-dark;
+        background-position: $bg-selected-ask-dark;
       }
     }
   }
@@ -63,11 +63,29 @@ $bg-selected-sell-light: -148px 0;
         background-position: $bg-selected-buy-light;
       }
     }
-    .toggle-button-sell {
-      background-position: $bg-position-sell-light;
+    .toggle-button-ask {
+      background-position: $bg-position-ask-light;
       &:global(.Mui-selected) {
-        background-position: $bg-selected-sell-light;
+        background-position: $bg-selected-ask-light;
       }
     }
   }
+}
+.orderbook-table-body,
+.orderbook-list-box {
+  position: relative;
+  display: flex;
+  flex: 1 1;
+  flex-direction: column;
+}
+.orderbook-list-item {
+  .orderbook-list-item-text:first-child {
+    text-align: left;
+  }
+}
+.orderbook-list-item-text {
+  flex: 1 1;
+  overflow: hidden;
+  text-align: right;
+  text-overflow: ellipsis;
 }
