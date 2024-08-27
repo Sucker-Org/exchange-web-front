@@ -97,7 +97,7 @@ export const RegStep2 = ({ goToStep3 }) => {
             sx={{ mb: 2, display: "flex", flexDirection: "row", justifyContent: "space-between", position: "relative" }}
             onClick={handleClick}
           >
-            {CODE_LENGTH.map((v, index) => {
+            {CODE_LENGTH.map((_v, index) => {
               const selected = code.length === index;
               const filled = code.length === CODE_LENGTH.length && index === CODE_LENGTH.length - 1;
               return (
