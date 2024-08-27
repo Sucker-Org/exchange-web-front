@@ -14,7 +14,7 @@ const Markets = () => {
   };
   return (
     <Layout footer>
-      <Container maxWidth="xl" sx={{ minHeight: "calc(100vh - var(--header-height))" }}>
+      <Container sx={{ minHeight: "calc(100vh - var(--header-height))", maxWidth: { xl: "xl" } }}>
         <Typography variant="h6" color="main" my={5}>
           行情概览
         </Typography>

@@ -16,7 +16,8 @@ import {
   USER_CENTER_URL,
   FUTURES_URL,
   EARN_URL,
-  LEARN_URL
+  LEARN_URL,
+  FORGET_PASSWORD_URL
 } from "@/config";
 
 const Home = lazy(() => import("../views/home"));
@@ -33,6 +34,7 @@ const Earn = lazy(() => import("@/views/earn")); //理财
 const Learn = lazy(() => import("@/views/learn")); //理财
 const Login = lazy(() => import("@/views/login")); //登录
 const Register = lazy(() => import("@/views/register")); //注册
+const ForgetPassword = lazy(() => import("@/views/resetPassword")); //忘记密码
 
 const RedirectToHome = () => {
   const navigate = useNavigate();
@@ -63,6 +65,7 @@ const AppRouters = () => {
 
           <Route path={LOGIN_URL} element={<Login />} />
           <Route path={REG_URL} element={<Register />} />
+          <Route path={FORGET_PASSWORD_URL} element={<ForgetPassword />} />
           <Route path="/403" element={<Error403 />} />
           <Route path="/404" element={<Error404 />} />
           <Route path="/500" element={<Error500 />} />

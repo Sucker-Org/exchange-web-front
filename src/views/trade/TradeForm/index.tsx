@@ -1,4 +1,4 @@
-import TradeLayoutCard from "../TradeLayoutCard";
+import TradeLayoutCard from "../components/TradeLayoutCard";
 import { SxProps, Theme } from "@mui/material";
 interface TradeFormProps {
   sx?: SxProps<Theme>;

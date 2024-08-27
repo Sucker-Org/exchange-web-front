@@ -14,7 +14,7 @@ const TradeSpot: React.FC = () => {
     gridTemplateAreas:
       "'left header header header right' 'left orderBook chart watchList right' 'left orderBook tradeForm watchList right' 'left account account account right'",
     gridTemplateColumns: "1fr minmax(253px, 320px) minmax(510px, 880px) minmax(253px, 320px) 1fr",
-    gridTemplateRows: "70px 500px minmax(360px, auto) 360px"
+    gridTemplateRows: "70px 500px minmax(360px, auto) 460px"
   };
   const tradeHeaderData: TradeHeaderProps = {
     assetData: {

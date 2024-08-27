@@ -14,21 +14,20 @@ import News from "./News";
 import AppDescription from "./Description";
 import Question from "./Question";
 import BackToTop from "@/components/BackToTop";
-import RowGap from "@/components/RowGap";
 const Home = () => {
   return (
     <Layout footer>
       <Banner />
       <HotCoins />
-      <RowGap size="3rem" />
+      <div style={{ height: "3rem" }} />
       <Guidebook />
-      <RowGap size="3rem" />
+      <div style={{ height: "3rem" }} />
       <News />
-      <RowGap size="3rem" />
+      <div style={{ height: "3rem" }} />
       <AppDescription />
-      <RowGap size="3rem" />
+      <div style={{ height: "3rem" }} />
       <Question />
-      <RowGap />
+      <div style={{ height: "1rem" }} />
       <BackToTop />
     </Layout>
   );

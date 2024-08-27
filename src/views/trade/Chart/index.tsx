@@ -1,6 +1,6 @@
 import { Box, SxProps, Tab, Theme } from "@mui/material";
 
-import TradeLayoutCard from "../TradeLayoutCard";
+import TradeLayoutCard from "../components/TradeLayoutCard";
 import { memo, useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import KlineChart from "@/components/KlineChart";
@@ -15,7 +15,7 @@ const Chart: React.FC<ChartProps> = memo(({ sx }) => {
     setTabIndex(newValue);
   };
   return (
-    <TradeLayoutCard sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
+    <TradeLayoutCard isLoading={false} sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
       <TabContext value={tabIndex}>
         <Box
           sx={{

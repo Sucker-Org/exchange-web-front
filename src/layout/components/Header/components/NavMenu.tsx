@@ -17,10 +17,10 @@ const StyledMenu = styled((props: MenuProps) => (
     <Card sx={{ p: 1, background: "#ffffff" }}>{props.children}</Card>
   </Popper>
 ))(({ theme }) => ({
-  "& .MuiBox-root": {
+  "& .Mui": {
     borderRadius: 6,
     marginTop: theme.spacing(1.4),
-    minWidth: 180
+    minWidth: 280
   }
 }));
 

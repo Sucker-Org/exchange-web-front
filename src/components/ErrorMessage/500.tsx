@@ -13,7 +13,7 @@ export const Error500 = () => {
       <div className="not-detail">
         <h2>500</h2>
         <Button href="/" variant="contained" color="primary" title="Back to Home">
-          Back to Home
+        返回首页
         </Button>
       </div>
     </div>

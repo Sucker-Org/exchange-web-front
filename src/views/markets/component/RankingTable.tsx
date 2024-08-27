@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { TRADE_SPOT_URL } from "@/config";
 import { Favorite } from "@/components/Favorite";
 import { memo } from "react";
-import RateText from "@/components/RateText";
+import { RateText } from "@/components/RateText";
 
 const TableHeader = memo(({ showHighLow }: { showHighLow?: boolean }) => {
   return (
@@ -82,6 +82,7 @@ const RowItem = ({ name, unit, price, rate, volume, marketCap, showHighLow, high
       <TableCell align="right">{marketCap}</TableCell>
       <TableCell align="right">
         <IconButton
+          title="trade"
           aria-label="trade"
           sx={{
             color: "text.secondary",

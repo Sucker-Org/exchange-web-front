@@ -1,18 +1,12 @@
 import { Stack, Typography } from "@mui/material";
 
-export const OrderbookTableHeader = () => {
+export const ListTableHeader = ({ headers }) => {
   const typographyStyle = {
     flex: "1 1",
     overflow: "hidden",
     textAlign: "right",
     textOverflow: "ellipsis"
   };
-
-  const headers = [
-    { title: "价格(USDT)", align: "left" },
-    { title: "数量(BTC)", align: "right" },
-    { title: "成交额", align: "right" }
-  ];
 
   return (
     <Stack
@@ -21,7 +15,7 @@ export const OrderbookTableHeader = () => {
         height: "20px",
         width: "100%",
         lineHeight: "20px",
-        px: 1
+        px: 1.5
       }}
     >
       {headers.map((header, index) => (

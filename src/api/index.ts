@@ -1,120 +1,140 @@
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  AxiosRequestHeaders,
+  InternalAxiosRequestConfig
+} from "axios";
 import { ResultData } from "@/api/interface";
-import { LOGIN_URL } from "@/config";
 import { ResultEnum } from "@/enums/httpEnum";
-// import router from "@/routers";
-import { useAuthStore } from "@/stores/modules/auth";
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from "axios";
 import { AxiosCanceler } from "./helper/axiosCancel";
 import { checkStatus } from "./helper/checkStatus";
-import { useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "@/components/CommonSnackbar";
+import { ContentTypeEnum } from "@/enums/httpEnum";
+import qs from "qs";
 
-export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+export interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   loading?: boolean;
   loadingText?: string;
   cancel?: boolean;
+  headers: AxiosRequestHeaders;
 }
 
-const config = {
-  // 默认地址请求地址，可在 .env.** 文件中修改
+const defaultConfig: AxiosRequestConfig = {
   baseURL: import.meta.env.VITE_API_URL as string,
-  // 设置超时时间
   timeout: ResultEnum.TIMEOUT as number,
-  // 跨域时候允许携带凭证
   withCredentials: true
 };
 
-const axiosCanceler = new AxiosCanceler();
+class ApiService {
+  private service: AxiosInstance;
+  private authToken: string = "";
+  private axiosCanceler = new AxiosCanceler();
 
-class RequestHttp {
-  service: AxiosInstance;
-  public constructor(config: AxiosRequestConfig) {
-    // instantiation
+  constructor(config: AxiosRequestConfig = defaultConfig) {
     this.service = axios.create(config);
+    this.initializeInterceptors();
+  }
 
-    /**
-     * @description 请求拦截器
-     * 客户端发送请求 -> [请求拦截器] -> 服务器
-     * token校验(JWT) : 接受服务器返回的 token,存储到本地储存当中
-     */
+  private initializeInterceptors() {
     this.service.interceptors.request.use(
-      (config: CustomAxiosRequestConfig) => {
-        const authStore = useAuthStore();
-        // 重复请求不需要取消，在 api 服务中通过指定的第三个参数: { cancel: false } 来控制
-        config.cancel ??= true;
-        config.cancel && axiosCanceler.addPending(config);
-        // 当前请求不需要显示 loading，在 api 服务中通过指定的第三个参数: { loading: false } 来控制
-        config.loading ??= true;
-        // config.loading && showFullScreenLoading(config.loadingText);
-        if (config.headers && typeof config.headers.set === "function") {
-          config.headers.set("Authorization", authStore.token);
-        }
-        return config;
+      (config: InternalAxiosRequestConfig) => {
+        return this.handleRequest(config as CustomAxiosRequestConfig);
       },
-      (error: AxiosError) => {
-        return Promise.reject(error);
-      }
+      (error: AxiosError) => Promise.reject(error)
     );
 
-    /**
-     * @description 响应拦截器
-     *  服务器换返回信息 -> [拦截统一处理] -> 客户端JS获取到信息
-     */
     this.service.interceptors.response.use(
-      (response: AxiosResponse & { config: CustomAxiosRequestConfig }) => {
-        const { data, config } = response;
-
-        const authStore = useAuthStore();
-        const navigator = useNavigate();
-        axiosCanceler.removePending(config);
-        // config.loading && tryHideFullScreenLoading();
-        // 登录失效
-        if (data.code == ResultEnum.OVERDUE) {
-          authStore.setToken("");
-          navigator(LOGIN_URL);
-          // ElMessage.error(data.msg);
-          return Promise.reject(data);
-        }
-        // 全局错误信息拦截（防止下载文件的时候返回数据流，没有 code 直接报错）
-        if (data.code && data.code !== ResultEnum.SUCCESS) {
-          // ElMessage.error(data.msg || "服务器异常");
-          return Promise.reject(data);
-        }
-        // 成功请求（在页面上除非特殊情况，否则不用处理失败逻辑）
-        return data;
-      },
-      async (error: AxiosError) => {
-        const { response } = error;
-        // tryHideFullScreenLoading();
-        // 请求超时 && 网络错误单独判断，没有 response
-        // if (error.message.indexOf("timeout") !== -1) ElMessage.error("请求超时！请您稍后重试");
-        // if (error.message.indexOf("Network Error") !== -1) ElMessage.error("网络错误！请您稍后重试");
-        // 根据服务器响应的错误状态码，做不同的处理
-        if (response) checkStatus(response.status);
-        // 服务器结果都没有返回(可能服务器错误可能客户端断网)，断网处理:可以跳转到断网页面
-        // if (!window.navigator.onLine) router.replace("/500");
-        return Promise.reject(error);
-      }
+      (response: AxiosResponse) => this.handleResponse(response),
+      async (error: AxiosError) => await this.handleError(error)
     );
   }
 
-  /**
-   * @description 常用请求方法封装
-   */
-  get<T>(url: string, params?: object, _object = {}): Promise<ResultData<T>> {
-    return this.service.get(url, { params, ..._object });
+  private handleRequest(config: CustomAxiosRequestConfig): CustomAxiosRequestConfig {
+    config.headers = config.headers ?? {};
+
+    /* const contentType = config.headers["Content-Type"] as string | undefined;
+    config.headers["Content-Type"] = this.getContentType(contentType); */
+
+    if (!config.headers["Content-Type"]) {
+      config.headers["Content-Type"] = ContentTypeEnum.JSON;
+    }
+
+    if (config.cancel !== false) {
+      this.axiosCanceler.addPending(config);
+    }
+
+    if (this.authToken) {
+      config.headers["Authorization"] = this.authToken;
+    }
+
+    if (config.headers["Content-Type"] === ContentTypeEnum.FORM_URLENCODED && config.data) {
+      config.data = qs.stringify(config.data);
+    }
+
+    return config;
   }
-  post<T>(url: string, params?: object | string, _object = {}): Promise<ResultData<T>> {
-    return this.service.post(url, params, _object);
+
+  private handleResponse(response: AxiosResponse) {
+    const config = response.config as CustomAxiosRequestConfig;
+    this.axiosCanceler.removePending(config);
+    const data = response.data;
+
+    if (data.code === ResultEnum.OVERDUE) {
+      this.authToken = "";
+      enqueueSnackbar("登录已过期，请重新登录", { variant: "error" });
+      return Promise.reject(data);
+    }
+
+    if (data.code && data.code !== ResultEnum.SUCCESS) {
+      enqueueSnackbar(data.message || "服务器异常", { variant: "error" });
+      return Promise.reject(data);
+    }
+
+    return data;
   }
-  put<T>(url: string, params?: object, _object = {}): Promise<ResultData<T>> {
-    return this.service.put(url, params, _object);
+
+  private handleError(error: AxiosError) {
+    const { response, message } = error;
+
+    if (message.includes("timeout")) {
+      enqueueSnackbar("请求超时！请您稍后重试", { variant: "error" });
+    } else if (message.includes("Network Error")) {
+      enqueueSnackbar("网络错误！请您稍后重试", { variant: "error" });
+    } else if (response) {
+      checkStatus(response.status);
+    } else if (!window.navigator.onLine) {
+      window.location.href = "/500";
+    }
+
+    return Promise.reject(error);
   }
-  delete<T>(url: string, params?: any, _object = {}): Promise<ResultData<T>> {
-    return this.service.delete(url, { params, ..._object });
+
+  setAuthToken(token: string) {
+    this.authToken = token;
   }
-  download(url: string, params?: object, _object = {}): Promise<BlobPart> {
-    return this.service.post(url, params, { ..._object, responseType: "blob" });
+
+  // 通用请求方法封装
+  get<T>(url: string, params?: object, config?: CustomAxiosRequestConfig): Promise<ResultData<T>> {
+    return this.service.get(url, { params, ...config });
+  }
+
+  post<T>(url: string, data?: object | string, config?: CustomAxiosRequestConfig): Promise<ResultData<T>> {
+    return this.service.post(url, data, config);
+  }
+
+  put<T>(url: string, data?: object, config?: CustomAxiosRequestConfig): Promise<ResultData<T>> {
+    return this.service.put(url, data, config);
+  }
+
+  delete<T>(url: string, params?: object, config?: CustomAxiosRequestConfig): Promise<ResultData<T>> {
+    return this.service.delete(url, { params, ...config });
+  }
+
+  download(url: string, params?: object, config?: CustomAxiosRequestConfig): Promise<BlobPart> {
+    return this.service.post(url, params, { ...config, responseType: "blob" });
   }
 }
 
-export default new RequestHttp(config);
+export default new ApiService();

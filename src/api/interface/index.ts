@@ -94,4 +94,12 @@ export namespace User {
   export interface ResUserFavorites {
     favorites: string[];
   }
+  export interface UserInfo {
+    username: string;
+    memberLevel: number;
+    token: string;
+    realName: string;
+    avatar: string;
+    id: string;
+  };
 }

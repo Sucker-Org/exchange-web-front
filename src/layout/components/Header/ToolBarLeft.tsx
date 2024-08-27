@@ -1,6 +1,13 @@
 import React, { useMemo } from "react";
 import { Box, BoxProps, Drawer, Link } from "@mui/material";
-import { MARKETS_URL, TRADE_SPOT_URL, TRADE_CROSS_URL, FUTURES_URL, EARN_URL, LEARN_URL, C2C_EXPRESS_URL } from "@/config";
+import {
+  MARKETS_URL,
+  TRADE_SPOT_URL,
+  /* TRADE_CROSS_URL,  */ FUTURES_URL,
+  EARN_URL,
+  /* LEARN_URL ,*/ C2C_EXPRESS_URL,
+  ANNOUNCEMENT_URL
+} from "@/config";
 import { NavMenu } from "./components/NavMenu";
 
 const Item = ({ sx, ...other }: BoxProps) => (
@@ -23,6 +30,7 @@ const NavigationItem = ({ link }) => (
         sx={{
           ml: 2,
           py: 1,
+          fontSize: "0.9rem",
           color: "text.primary",
           transition: "color 0.3s ease-in-out",
           "&:hover": {
@@ -44,7 +52,7 @@ const ToolBarLeft: React.FC<ToolBarLeftProps> = ({ drawerVisible, closeDrawer })
     () => [
       { href: C2C_EXPRESS_URL, title: "买币" },
       { href: MARKETS_URL, title: "行情" },
-      {
+      /* {
         title: "交易",
         menuList: [
           {
@@ -60,11 +68,13 @@ const ToolBarLeft: React.FC<ToolBarLeftProps> = ({ drawerVisible, closeDrawer })
             href: TRADE_CROSS_URL
           }
         ]
-      },
+      }, */
+      { href: TRADE_SPOT_URL, title: "现货" },
       { href: FUTURES_URL, title: "合约" },
       { href: EARN_URL, title: "理财" },
-      { href: LEARN_URL, title: "新手学院" },
-      { href: "/more", title: "更多" }
+      { href: ANNOUNCEMENT_URL, title: "公告" }
+      // { href: LEARN_URL, title: "新手学院" },
+      // { href: "/more", title: "更多" }
     ],
     []
   );

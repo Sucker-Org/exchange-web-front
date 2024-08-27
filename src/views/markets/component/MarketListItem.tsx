@@ -1,6 +1,6 @@
 import { Typography, Stack } from "@mui/material";
 import { IconText } from "@/components/IconText";
-import RateText from "@/components/RateText";
+import {RateText} from "@/components/RateText";
 import { useNavigate } from "react-router-dom";
 import { TRADE_SPOT_URL } from "@/config";
 

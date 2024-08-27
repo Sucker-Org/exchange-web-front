@@ -5,7 +5,7 @@
  */
 import Layout from "@/layout";
 import { Container } from "@mui/material";
-import { TradeHeader, WatchList, Chart, OrderBook, TradeForm, Account } from "./component";
+import { TradeHeader, WatchList, Chart, Orderbook, TradeForm, Account } from "./component";
 
 // mock data img
 import Btc from "@/assets/images/home/icon-btc.png";
@@ -44,7 +44,7 @@ const TradeCross: React.FC = () => {
     <Layout>
       <Container className="trade-wrap" maxWidth={false} style={layoutStyle}>
         <TradeHeader {...tradeHeaderData} sx={{ gridArea: "header" }} />
-        <OrderBook sx={{ gridArea: "orderBook" }} />
+        <Orderbook sx={{ gridArea: "orderBook" }} />
         <Chart sx={{ gridArea: "chart" }} />
         <TradeForm sx={{ gridArea: "tradeForm" }} />
         <WatchList sx={{ gridArea: "watchList" }} />

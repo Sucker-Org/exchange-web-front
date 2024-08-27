@@ -1,6 +1,7 @@
 import { Box, Button, Container, Stack, SxProps, Theme } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useC2CNavStore, NavActive, navItems } from "@/stores/modules/c2cNavStore";
+import { useAuthStore } from "@/stores/modules/auth";
 
 export interface C2CNavigationProps {
   sx?: SxProps<Theme>;
@@ -8,6 +9,7 @@ export interface C2CNavigationProps {
 
 const C2CNavigation: React.FC<C2CNavigationProps> = ({ sx }) => {
   const navigate = useNavigate();
+  const authStore = useAuthStore();
 
   const { active, setActive } = useC2CNavStore();
 
@@ -52,7 +54,7 @@ const C2CNavigation: React.FC<C2CNavigationProps> = ({ sx }) => {
     >
       <Stack spacing={{ xs: 1, sm: 2 }} justifyContent="space-between" direction="row" useFlexGap flexWrap="nowrap" px={0}>
         <Box>{navItems.slice(0, 2).map(renderButton)}</Box>
-        <Box>{navItems.slice(2).map(renderButton)}</Box>
+        {authStore.token ? <Box>{navItems.slice(2).map(renderButton)}</Box> : null}
       </Stack>
     </Container>
   );

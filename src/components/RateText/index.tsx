@@ -1,7 +1,14 @@
+// RateText.tsx
 import { Typography, TypographyProps } from "@mui/material";
 import { memo } from "react";
 
-const RateText = ({ rate, variant, zeroColor }: { rate: number; variant?: TypographyProps["variant"]; zeroColor?: any }) => {
+interface RateTextProps {
+  rate: number;
+  variant?: TypographyProps["variant"];
+  zeroColor?: string; // Assuming zeroColor is a string. Adjust the type as necessary.
+}
+
+const RateText: React.FC<RateTextProps> = ({ rate, variant, zeroColor }) => {
   return (
     <Typography
       variant={variant || "body2"}
@@ -14,4 +21,7 @@ const RateText = ({ rate, variant, zeroColor }: { rate: number; variant?: Typogr
     </Typography>
   );
 };
-export default memo(RateText);
+
+const MemoizedRateText = memo(RateText);
+
+export { MemoizedRateText as RateText };

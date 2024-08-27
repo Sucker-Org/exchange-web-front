@@ -1,4 +1,4 @@
-import { Avatar, Box, Container, List, ListItem, ListItemAvatar, ListItemText, Stack, Typography } from "@mui/material";
+import { Avatar, Box, List, ListItem, ListItemAvatar, ListItemText, Stack, Typography } from "@mui/material";
 import StepImg from "@/assets/images/trade/step.png";
 import React from "react";
 import { PaymentMethods } from "../PaymentMethods";
@@ -19,47 +19,47 @@ const steps = [
 
 const StepDesc = () => {
   return (
-    <Container maxWidth="lg">
-      <Stack justifyContent="center" alignItems="center" spacing={10} direction={"row"}>
+    <Stack justifyContent="space-between" alignItems="center" spacing={10} direction={"row"}>
+      <Box textAlign="center" flex={"1 1"}>
         <img src={StepImg} alt="Step" width={409} height={490} />
-        <Box>
-          <Typography variant="h4" gutterBottom>
-            简单几步就可以购买加密货币
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary" mb={6}>
-            在灰度交易所上可以安全放心的购买加密货币。以下是您在灰度上购币的流程：
-          </Typography>
-          <List sx={{ width: "100%" }}>
-            {steps.map((step, index) => (
-              <ListItem
-                key={index}
-                alignItems="flex-start"
-                sx={{
-                  mb: 4
-                }}
-              >
-                <ListItemAvatar>
-                  <Avatar sx={avatarStyle}>{index + 1}</Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={step.primary}
-                  secondary={
-                    index === 2 ? (
-                      <React.Fragment>
-                        {"添加与你实名信息一致的支付方式，我们支持"}
-                        <PaymentMethods gap={1} />
-                      </React.Fragment>
-                    ) : (
-                      step.secondary
-                    )
-                  }
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      </Stack>
-    </Container>
+      </Box>
+      <Box flex={"1 1"}>
+        <Typography variant="h4" gutterBottom>
+          简单几步就可以购买加密货币
+        </Typography>
+        <Typography variant="subtitle1" color="text.secondary" mb={6}>
+          在灰度交易所上可以安全放心的购买加密货币。以下是您在灰度上购币的流程：
+        </Typography>
+        <List sx={{ width: "100%" }}>
+          {steps.map((step, index) => (
+            <ListItem
+              key={index}
+              sx={{
+                alignItems: "flex-start",
+                mb: 4
+              }}
+            >
+              <ListItemAvatar>
+                <Avatar sx={avatarStyle}>{index + 1}</Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                primary={step.primary}
+                secondary={
+                  index === 2 ? (
+                    <React.Fragment>
+                      {"添加与你实名信息一致的支付方式，我们支持"}
+                      <PaymentMethods gap={1} />
+                    </React.Fragment>
+                  ) : (
+                    step.secondary
+                  )
+                }
+              />
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+    </Stack>
   );
 };
 

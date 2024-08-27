@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import RateText from "@/components/RateText";
+import { RateText } from "@/components/RateText";
 import { defaultBorderColor } from "@/config/themeConfig";
 import { Box, Link, Stack, Typography } from "@mui/material";
 import { TRADE_SPOT_URL } from "@/config";

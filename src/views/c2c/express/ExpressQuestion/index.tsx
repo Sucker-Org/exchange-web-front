@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Avatar, Container, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Box, Typography } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useState } from "react";
@@ -108,7 +108,7 @@ const faqs = [
 
 const ExpressQuestion = () => {
   return (
-    <Container maxWidth="lg">
+    <Box>
       <Typography variant="h4" sx={{ mb: 6, fontWeight: 500 }}>
         交易常见问题
       </Typography>
@@ -119,7 +119,7 @@ const ExpressQuestion = () => {
           </Typography>
         </AccordionComponent>
       ))}
-    </Container>
+    </Box>
   );
 };
 

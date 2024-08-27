@@ -1,0 +1,21 @@
+.menu-icon {
+  width: 22px;
+  height: 22px;
+  background-image: url("@/assets/images/icon-user-menu.png");
+  background-repeat: no-repeat;
+  &.menu-icon-overview {
+    background-position: 0 0;
+  }
+  &.menu-icon-security {
+    background-position: 0 -23px;
+  }
+  &.menu-icon-authentication {
+    background-position: 0 -46px;
+  }
+  &.menu-icon-preference {
+    background-position: 0 -90px;
+  }
+  &.menu-icon-logout {
+    background-position: 0 -162px;
+  }
+}

@@ -1,7 +1,17 @@
 import React from "react";
-import { SnackbarProvider } from "notistack";
+import { SnackbarProvider, useSnackbar } from "notistack";
+let useSnackbarRef: any;
 
-const CommonSnackbar: React.FC = () => {
+export const SnackbarHelperContinuator: React.FC = () => {
+  useSnackbarRef = useSnackbar();
+  return null;
+};
+
+export const enqueueSnackbar = (message: string, options: any) => {
+  useSnackbarRef.enqueueSnackbar(message, options);
+};
+
+const CommonSnackbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <SnackbarProvider
       maxSnack={3}
@@ -10,7 +20,10 @@ const CommonSnackbar: React.FC = () => {
         horizontal: "right"
       }}
       autoHideDuration={3000}
-    />
+    >
+      <SnackbarHelperContinuator />
+      {children}
+    </SnackbarProvider>
   );
 };
 

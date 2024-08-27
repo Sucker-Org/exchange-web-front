@@ -13,6 +13,9 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import Download from "./components/Download";
+import { UserMenu } from "./components/UserMenu";
+import { useUserStore } from "@/stores/modules/user";
+import React from "react";
 
 const Item = (props: BoxProps) => {
   const { sx, ...other } = props;
@@ -33,6 +36,7 @@ interface ToolBarLeftProps {
 }
 const ToolBarRight = ({ openDrawer }: ToolBarLeftProps) => {
   const navigate = useNavigate();
+  const userStore = useUserStore();
 
   const setTheme = useThemeStore(state => state.setTheme);
   const currentTheme = useThemeStore(state => state.theme);
@@ -55,31 +59,42 @@ const ToolBarRight = ({ openDrawer }: ToolBarLeftProps) => {
         justifyContent: "center"
       }}
     >
-      <Item>
-        <Button
-          sx={{ color: "text.primary", borderRadius: "5rem" }}
-          size="small"
-          onClick={() => navigate(LOGIN_URL)}
-          title="登录"
-        >
-          登录
-        </Button>
-      </Item>
-      <Item sx={{ mr: 1 }}>
-        <Button
-          sx={{
-            color: "background.paper",
-            bgcolor: "text.primary",
-            borderRadius: "5rem",
-            "&:hover": { bgcolor: "text.primary" }
-          }}
-          size="small"
-          title="注册"
-          onClick={() => navigate(REG_URL)}
-        >
-          注册
-        </Button>
-      </Item>
+      {userStore.token ? (
+        <UserMenu />
+      ) : (
+        <React.Fragment>
+          <Item
+            sx={{
+              display: { xs: "none", sm: "none", md: "flex" }
+            }}
+          >
+            <Button
+              sx={{ color: "text.primary", borderRadius: "5rem" }}
+              size="small"
+              onClick={() => navigate(LOGIN_URL)}
+              title="登录"
+            >
+              登录
+            </Button>
+          </Item>
+          <Item sx={{ mr: 1, display: { xs: "none", sm: "none", md: "flex" } }}>
+            <Button
+              sx={{
+                color: "background.paper",
+                bgcolor: "text.primary",
+                borderRadius: "5rem",
+                "&:hover": { bgcolor: "text.primary" }
+              }}
+              size="small"
+              title="注册"
+              onClick={() => navigate(REG_URL)}
+            >
+              注册
+            </Button>
+          </Item>
+        </React.Fragment>
+      )}
+
       <Item>
         <Download />
       </Item>
@@ -97,7 +112,7 @@ const ToolBarRight = ({ openDrawer }: ToolBarLeftProps) => {
 
       <Item
         sx={{
-          display: { xs:"flex", sm: "flex", md: "none" }
+          display: { xs: "flex", sm: "flex", md: "none" }
         }}
         onClick={openDrawer}
       >

@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2024-04-07 09:54:32
- * @LastEditTime: 2024-07-05 17:13:14
+ * @LastEditTime: 2024-07-23 14:32:47
  */
 // ? 全局默认配置项
 
@@ -13,6 +13,9 @@ export const LOGIN_URL: string = "/login";
 
 // 注册页地址
 export const REG_URL: string = "/register";
+
+// 忘记密码页地址
+export const FORGET_PASSWORD_URL: string = "/forget-password";
 
 //快捷买币页面地址
 export const C2C_EXPRESS_URL: string = "/c2c/express";
@@ -45,11 +48,21 @@ export const EARN_URL: string = "/earn";
 
 //新手学院
 export const LEARN_URL: string = "/learn";
+// 公告
+export const ANNOUNCEMENT_URL: string = "/announcement";
+
+// 公告详情
+export const ANNOUNCEMENT_DETAIL_URL: string = "/announcement/detail";
 
 //个人中心
 export const USER_CENTER_URL: string = "/user-center";
 
-// 路由白名单地址（本地存在的路由 staticRouter.ts 中）
+// 安全中心
+export const SECURITY_URL: string = "/user/security";
+
+//身份认证
+export const AUTHENTICATION_URL: string = "/user/authentication";
+
 export const ROUTER_WHITE_LIST: string[] = ["/500"];
 
 export const STORAGE_KEYS = {

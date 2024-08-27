@@ -1,10 +1,10 @@
 import { Box, SelectChangeEvent, SxProps, Theme, useTheme } from "@mui/material";
-import TradeLayoutCard from "../TradeLayoutCard";
+import TradeLayoutCard from "../components/TradeLayoutCard";
 import { useEffect, useState } from "react";
 import styles from "./index.module.scss";
 import { Compare } from "./Compare";
 import { OrderbookHeader } from "./OrderbookHeader";
-import { OrderbookTableHeader } from "./OrderbookTableHeader";
+import { ListTableHeader } from "../components/ListTableHeader";
 import { OrderbookTableBody } from "./OrderbookTableBody";
 
 export const DirectionEnums = {
@@ -42,12 +42,18 @@ const OrderBook: React.FC<OrderBookProps> = ({ sx }) => {
     setDecimalList(["0.1", "1", "10", "100"]);
     setLoading(false);
   }, []);
+
+  const headers = [
+    { title: "价格(USDT)", align: "left" },
+    { title: "数量(BTC)", align: "right" },
+    { title: "成交额", align: "right" }
+  ];
   return (
     <TradeLayoutCard isLoading={loading} sx={{ ...sx }}>
       <Box
         sx={{
           display: "flex",
-          height: "100%",
+          // height: "100%",
           flexDirection: "column"
         }}
       >
@@ -55,8 +61,8 @@ const OrderBook: React.FC<OrderBookProps> = ({ sx }) => {
           className={`${themeMode.palette.mode === "dark" ? styles["theme-dark"] : styles["theme-light"]}`}
           sx={{
             display: "flex",
-            flexDirection: "column",
-            height: "100%"
+            height: "100%",
+            flexDirection: "column"
           }}
         >
           <OrderbookHeader
@@ -67,10 +73,10 @@ const OrderBook: React.FC<OrderBookProps> = ({ sx }) => {
             decimalList={decimalList}
             sx={{ height: 20, ml: 1, my: 1 }}
           />
-          <OrderbookTableHeader />
+          <ListTableHeader headers={headers} />
 
-          <OrderbookTableBody price={"76892.76"} priceDirection={"down"} decimal={decimal} direction={direction} />
-          <Compare sx={{ height: 20 }} {...compareData} />
+          <OrderbookTableBody newPrice={"76892.76"} priceDirection={"down"} decimal={decimal} direction={direction} />
+          <Compare sx={{ height: 20, px: 1.5 }} {...compareData} />
         </Box>
       </Box>
     </TradeLayoutCard>

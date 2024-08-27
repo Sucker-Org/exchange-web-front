@@ -13,7 +13,7 @@ export const Error403 = () => {
       <div className="not-detail">
         <h2>403</h2>
         <Button href="/" variant="contained" color="primary" title="Back to Home">
-          Back to Home
+          返回首页
         </Button>
       </div>
     </div>

@@ -5,7 +5,6 @@
  */
 import Layout from "@/layout";
 import StepDesc from "./StepDesc";
-import RowGap from "@/components/RowGap";
 import ExpressQuestion from "./ExpressQuestion";
 import { Box, Container, Stack, Typography } from "@mui/material";
 import ExpressFrom from "./ExpressFrom";
@@ -35,17 +34,17 @@ const Express = () => {
   return (
     <Layout footer>
       <C2CNavigation sx={{ mb: 4 }} />
-      <Container maxWidth="lg" sx={{ mb: 12 }}>
-        <Stack direction={"row"} useFlexGap>
+      <Container sx={{ maxWidth: { xl: "xl" } }}>
+        <Stack direction={"row"} useFlexGap mb="5rem">
           {renderText()}
           <ExpressFrom />
         </Stack>
+        <StepDesc />
+        <div style={{ height: "4rem" }} />
+        <ExpressQuestion />
+        <div style={{ height: "4rem" }} />
       </Container>
 
-      <StepDesc />
-      <RowGap size="3rem" />
-      <ExpressQuestion />
-      <RowGap size="3rem" />
       <BackToTop />
     </Layout>
   );

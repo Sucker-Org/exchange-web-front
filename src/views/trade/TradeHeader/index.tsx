@@ -1,10 +1,10 @@
 import { IconText } from "@/components/IconText";
 import { IconButton, Stack, SxProps, Theme, Typography } from "@mui/material";
-import TradeLayoutCard from "../TradeLayoutCard";
+import TradeLayoutCard from "../components/TradeLayoutCard";
 import { useMemo, memo, useState, useEffect } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import RateText from "@/components/RateText";
+import { RateText } from "@/components/RateText";
 
 const AssetItem = memo(({ title, value }: { title: string; value: string }) => {
   return (
@@ -62,7 +62,7 @@ const TradeHeader: React.FC<TradeHeaderProps> = memo(
     return (
       <TradeLayoutCard isLoading={loading} sx={style}>
         <Stack height={70} direction={"row"} useFlexGap alignItems="center" pt={1}>
-          <IconButton sx={{ mr: 1, color: isFav ? "var(--fav-yellow)" : "text.main" }} onClick={handleFav}>
+          <IconButton title="fav" sx={{ mr: 1, color: isFav ? "var(--fav-yellow)" : "text.primary" }} onClick={handleFav}>
             {isFav ? <StarIcon /> : <StarBorderIcon />}
           </IconButton>
           <IconText
@@ -81,7 +81,7 @@ const TradeHeader: React.FC<TradeHeaderProps> = memo(
           <Stack direction={"column"} useFlexGap mr={4.5}>
             <Typography
               variant="body1"
-              color={coinRate === 0 ? "text.main" : coinRate > 0 ? "var(--rate-green)" : "var(--rate-red)"}
+              color={coinRate === 0 ? "text.primary" : coinRate > 0 ? "var(--rate-green)" : "var(--rate-red)"}
             >
               {coinPrice}
             </Typography>
