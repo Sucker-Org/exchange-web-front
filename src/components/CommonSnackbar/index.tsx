@@ -1,15 +1,6 @@
 import React from "react";
-import { SnackbarProvider, useSnackbar } from "notistack";
-let useSnackbarRef: any;
-
-export const SnackbarHelperContinuator: React.FC = () => {
-  useSnackbarRef = useSnackbar();
-  return null;
-};
-
-export const enqueueSnackbar = (message: string, options: any) => {
-  useSnackbarRef.enqueueSnackbar(message, options);
-};
+import { SnackbarProvider } from "notistack";
+import { SnackbarHelperContinuator } from "./snackbarHelper";
 
 const CommonSnackbar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
